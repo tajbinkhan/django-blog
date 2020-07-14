@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8" style="margin-top: 3.1rem!important;">
+            <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Log In</legend>
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                        {% endif %}
+                            <div id="div_id_username" class="form-group">
+                                <label for="id_username" class=" requiredField">
+                                    Username<span class="asteriskField">*</span>
+                                </label>
+                                <div class="">
+                                    <input type="text" name="username" autofocus class="textinput textInput form-control" required id="id_username"placeholder="Username">
+                                </div>
+                            </div>
+                            <div id="div_id_password" class="form-group">
+                                <label for="id_password" class=" requiredField">
+                                    Password<span class="asteriskField">*</span>
+                                </label>
+                                <div class="">
+                                    <input type="password" name="password" class="textinput textInput form-control" required id="id_password" placeholder="Password">
+                                </div>
+                            </div>
+                    </fieldset>
+                    {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    {% endif %}
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% include 'blog/sidebar.html' %}
+    </div>
+</div>
+{% endblock content %}

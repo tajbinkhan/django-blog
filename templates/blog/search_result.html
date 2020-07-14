@@ -1,0 +1,123 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+	<section class="featured-posts" style="padding: 50px 0px 0px 0px;">
+		<h2 class="container mb-5">Search Result: </h2>
+		<div class="container">
+			{% for post in search_queryset %}
+				<!-- Post-->
+				<div class="row d-flex align-items-stretch adjustment" style="margin-top: -50px;">
+					<div class="offset-1"></div>
+					<div class="img-fluid col-lg-4"><img src="{{ post.thumbnail.url}}" alt="..." style="height: 200px; margin-top: 70px"></div>
+					<div class="text col-lg-6">
+						<div class="text-inner d-flex align-items-center">
+							<div class="content">
+								<header class="post-header">
+									<div class="category">
+										{% for cat in post.categories.all %}
+											<a href="{% url 'post_by_category' cat.slug %}">{{ cat }}</a>
+										{% endfor %}
+									</div>
+									<a href="{% url 'post_detail' post.slug %}">
+										<h2 class="h4">{{ post.title }}</h2>
+									</a>
+								</header>
+								{% if post.content|length > 180 %}
+									<p class="text-muted">{{ post.overview|truncatewords:27 }}</p>
+									<div class="row">
+										<div class="col-7 d-flex align-items-center">
+											<div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }}</div>
+											<div class="comments"><i class="icon-comment"></i>{{ post.comments.count }}</div>
+										</div>
+									<div class=" col-5 text-right">
+										<a href="{% url 'post_detail' post.slug %}" class="btn btn-outline-secondary rounded">Read More</a>
+									</div>
+								</div>
+							{% else %}
+								<p class="text-muted">{{ post.overview }}</p>
+								<div>
+									<footer class="post-footer d-flex align-items-center">
+										<div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }}</div>
+										<div class="comments"><i class="icon-comment"></i>{{ post.comments.count }}</div>
+									</footer>
+								</div>
+								<div class="text-right">
+									<a href="{% url 'post_detail' post.slug %}" class="btn btn-outline-secondary rounded">Read More</a>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			<div class="offset-1"></div>
+		</div>
+	{% endfor %}
+	<nav aria-label="Page navigation example">
+		<ul class="pagination pagination-template d-flex justify-content-center">
+			{% if is_paginated %}
+				{% if page_obj.has_previous %}
+					<a href="?page=1" class="btn btn-outline-secondary rounded"><i class="fa fa-angle-left mr-2"></i>Go to First Page</a>
+					<li class="page-item text-center">
+						<a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa fa-angle-left"></i>
+						</a>
+					</li>
+				{% endif %}
+				{% for num in page_obj.paginator.page_range %}
+					{% if page_obj.number == num %}
+						<li class="page-item text-center"><a href="?page=1" class="page-link active">{{ num }}</a></li>
+						{% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+						<li class="page-item text-center"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+					{% endif %}
+				{% endfor %}
+				{% if page_obj.has_next %}
+					<li class="page-item text-center">
+						<a href="?page={{ page_obj.next_page_number }}" class="page-link">
+							<i class="fa fa-angle-right"></i>
+						</a>
+					</li>
+					<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary rounded">Go to Last Page<i class="fa fa-angle-right ml-2"></i></a>
+				{% endif %}
+			{% endif %}
+		</ul>
+	</nav>
+</div>
+</section>
+<section class="latest-posts" style="padding: 15px 0px 50px 0px;">
+<div class="container">
+	<header>
+		<h2>Latest from the blog</h2>
+		<p class="text-big">Django Blog For You</p>
+	</header>
+	<div class="row">
+		{% for post in most_recent %}
+			<div class="post col-md-4">
+				<div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{ post.thumbnail.url }}"
+				alt="..." class="img-fluid"></a></div>
+				<div class="post-details">
+					<div class="post-meta d-flex justify-content-between">
+						<div class="date">{{ post.timestamp|date:"d M | Y" }}</div>
+						<div class="category">
+							{% for cat in post.categories.all %}
+								<a href="#">{{ cat }}</a>
+							{% endfor %}
+						</div>
+					</div><a href="{% url 'post_detail' post.slug %}">
+					<h3 class="h4">{{ post.title}}</h3>
+				</a>
+				{% if post.content|length > 100 %}
+					<p class="text-muted">{{ post.overview|truncatewords:25 }}</p>
+					<div class="text-right">
+						<a href="{% url 'post_detail' post.slug %}" class="btn btn-outline-secondary rounded">Read More</a>
+					</div>
+				{% else %}
+					<p class="text-muted">{{ post.overview }}</p>
+					<div class="text-right">
+						<a href="{% url 'post_detail' post.slug %}" class="btn btn-outline-secondary rounded">Read More</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+</div>
+</div>
+</section>
+{% endblock %}
