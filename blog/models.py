@@ -1,3 +1,5 @@
+import os
+import datetime
 from .utils import unique_slug_generator
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -8,6 +10,17 @@ from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+def get_filename_ext(filepath):
+    base_name = os.path.basename(filepath)
+    name, ext = os.path.splitext(base_name)
+    return name, ext
+
+def upload_image_path(instance, filename):
+    new_filename = datetime.datetime.now()
+    name, ext = get_filename_ext(filename)
+    final_filename = f'{new_filename}{ext}'
+    return f'products/{final_filename}'
 
 class Category(models.Model):
     title = models.CharField(max_length=120)
@@ -33,7 +46,7 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category)
-    thumbnail = models.ImageField(upload_to='blog_thumbnail')
+    thumbnail = models.ImageField(upload_to=upload_image_path)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank=True, null=True)
     next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank=True, null=True)

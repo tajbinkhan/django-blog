@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'user.apps.UserConfig',
-    'site_settings.apps.SiteSettingsConfig',
+    'settings.apps.SettingsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

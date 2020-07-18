@@ -9,12 +9,6 @@ class Setting(models.Model):
 	facebook = models.CharField(max_length=50)
 	instagram = models.CharField(max_length=50)
 	youtube = models.CharField(max_length=50)
-
-	def __str__(self):
-		return self.title
-
-class FooterCredit(models.Model):
-	title = models.CharField(max_length=120)
 	left_credit = models.CharField(max_length=120)
 	right_credit = models.CharField(max_length=120)
 

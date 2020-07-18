@@ -8,7 +8,7 @@
 					<div class="col-md-8">
 						<form action="{% url 'search' %}">
 							<div class="form-group">
-								<input type="text" name="q" id="search" placeholder="What are you looking for?">
+								<input type="text" name="q" id="search" placeholder="What are you looking for?" value="{{ request.GET.q }}">
 								<button type="submit" class="submit"><i class="icon-search-1"></i></button>
 							</div>
 						</form>

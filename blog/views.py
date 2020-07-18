@@ -33,28 +33,50 @@ class PostCategoryView(ListView):
         context['category_count'] = category_count
         return context
 
-class SearchView(View):
-    def get(self, request, *args, **kwargs):
+# class SearchView(View):
+#     def get(self, request, *args, **kwargs):
+#         category_count = get_category_count()
+#         most_recent = Post.objects.order_by('-timestamp')[:3]
+#         paginate_by = 6
+#         search_queryset = Post.objects.all().order_by('-timestamp')
+#         search_query = request.GET.get('q')
+#         if search_query:
+#             search_queryset = search_queryset.filter(
+#                 Q(title__icontains=search_query) |
+#                 Q(content__icontains=search_query)
+#             ).distinct()
+
+#         context = {
+#             'category_count': category_count,
+#             'search_queryset': search_queryset,
+#             'most_recent': most_recent,
+#             'head_title': 'Search',
+#         }
+
+#         return render(request, 'blog/search_result2.html', context)
+
+class SearchListView(ListView):
+    template_name = 'blog/search_result.html'
+    context_object_name = 'search_queryset'
+    paginate_by = 4
+
+    def get_context_data(self, *args, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
-        paginate_by = 6
-        search_queryset = Post.objects.all().order_by('-timestamp')
-        search_query = request.GET.get('q')
-        if search_query:
-            search_queryset = search_queryset.filter(
-                Q(title__icontains=search_query) |
-                Q(content__icontains=search_query)
-            ).distinct()
+        context = super(SearchListView, self).get_context_data(*args, **kwargs)
+        context['head_title'] = 'Search'
+        context['most_recent'] = most_recent
+        context['category_count'] = category_count
+        context['query'] = self.request.GET.get('q')
+        return context
 
-        context = {
-            'category_count': category_count,
-            'search_queryset': search_queryset,
-            'most_recent': most_recent,
-            'head_title': 'Search',
-        }
-
-        return render(request, 'blog/search_result.html', context)
-
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        query = request.GET.get('q')
+        if query is not None:
+            lookups = Q(title__icontains=query) | Q(content__icontains=query)
+            return Post.objects.filter(lookups).order_by('-timestamp')
+        return redirect('search/search-none.html')
 
 class PostListView(ListView):
     model = Post
