@@ -95,7 +95,7 @@
 						{% else %}
 							<div class="add-comment">
 								<div class="form-group col-md-12">
-									<a href="{% url 'login' %}" class="btn btn-secondary">Log into comment</a>
+									<a href="{% url 'login' %}?next={{request.path}}" class="btn btn-secondary">Log into comment</a>
 								</div>
 							</div>
 						{% endif %}
