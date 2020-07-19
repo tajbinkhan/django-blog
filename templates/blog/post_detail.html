@@ -76,7 +76,7 @@
 							{% endfor %}
 						</div>
 						{% if request.user.is_authenticated %}
-							<div class="add-comment">
+							<div class="add-comment" id="leave-a-reply">
 								<header>
 									<h3 class="h6">Leave a reply</h3>
 								</header>
@@ -93,9 +93,9 @@
 								</form>
 							</div>
 						{% else %}
-							<div class="add-comment">
+							<div class="add-comment" id="leave-a-reply">
 								<div class="form-group col-md-12">
-									<a href="{% url 'login' %}?next={{request.path}}" class="btn btn-secondary">Log into comment</a>
+									<a href="{% url 'login' %}?next={{request.path}}#leave-a-reply" class="btn btn-secondary">Log into comment</a>
 								</div>
 							</div>
 						{% endif %}

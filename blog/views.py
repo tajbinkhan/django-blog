@@ -36,28 +36,6 @@ class PostCategoryView(ListView):
         context['category_count'] = category_count
         return context
 
-# class SearchView(View):
-#     def get(self, request, *args, **kwargs):
-#         category_count = get_category_count()
-#         most_recent = Post.objects.order_by('-timestamp')[:3]
-#         paginate_by = 6
-#         search_queryset = Post.objects.all().order_by('-timestamp')
-#         search_query = request.GET.get('q')
-#         if search_query:
-#             search_queryset = search_queryset.filter(
-#                 Q(title__icontains=search_query) |
-#                 Q(content__icontains=search_query)
-#             ).distinct()
-
-#         context = {
-#             'category_count': category_count,
-#             'search_queryset': search_queryset,
-#             'most_recent': most_recent,
-#             'head_title': 'Search',
-#         }
-
-#         return render(request, 'blog/search_result2.html', context)
-
 class SearchListView(ListView):
     template_name = 'blog/search_result.html'
     context_object_name = 'search_queryset'
