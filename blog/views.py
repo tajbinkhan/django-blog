@@ -9,9 +9,6 @@ from .forms import CommentForm, PostForm, CategoryForm
 
 # Create your views here.
 
-def error_404_page(request, exception):
-    return render(request, '404.html')
-
 def get_category_count():
     category_query = Post.objects.values('categories__slug', 'categories__title').annotate(Count('categories__title'))
     return category_query

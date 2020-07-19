@@ -20,5 +20,3 @@ urlpatterns = [
 	path('search/', SearchListView.as_view(), name='search'),
 	path('tinymce/', include('tinymce.urls')),
 ]
-
-handler404 = 'blog.views.error_404_page'
