@@ -102,3 +102,7 @@ span.date-post {
 .ul-list-class{
     margin-left: 30px;
 }
+
+textarea.text-appear{
+    outline: none;
+}

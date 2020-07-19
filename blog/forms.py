@@ -31,7 +31,7 @@ class CategoryForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(attrs={
-        'class': 'form_control',
+        'class': 'form_control text-appear',
         'placeholder': 'Type your comment',
         'id': 'usercomment',
         'rows': '4',
