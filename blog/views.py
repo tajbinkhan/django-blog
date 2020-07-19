@@ -58,7 +58,7 @@ class PostCategoryView(ListView):
 class SearchListView(ListView):
     template_name = 'blog/search_result.html'
     context_object_name = 'search_queryset'
-    paginate_by = 4
+    paginate_by = 6
 
     def get_context_data(self, *args, **kwargs):
         category_count = get_category_count()
@@ -75,7 +75,7 @@ class SearchListView(ListView):
         query = request.GET.get('q')
         if query is not None:
             lookups = Q(title__icontains=query) | Q(content__icontains=query)
-            return Post.objects.filter(lookups).order_by('-timestamp')
+            return Post.objects.filter(lookups).distinct().order_by('-timestamp')
         return redirect('search/search-none.html')
 
 class PostListView(ListView):

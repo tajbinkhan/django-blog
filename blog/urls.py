@@ -6,7 +6,8 @@ from .views import PostListView, PostDetailView, PostCreateView, PostDeleteView,
 
 urlpatterns = [
 	path('', PostListView.as_view(), name='blog-home'),
-	# path('search/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
+	path('post/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
+	path('post/category/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
 	path('post/create/', PostCreateView.as_view(), name='post_create'),
 	path('post/category/create/', CategoryCreateView.as_view(), name='category_create'),
 	path('post/category/list/', CategoryListView.as_view(), name='category_list'),
