@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Post, Category
 from .forms import CommentForm, PostForm, CategoryForm
+from settings.models import Setting
 
 # Create your views here.
 
@@ -27,8 +28,10 @@ class PostCategoryView(ListView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super(PostCategoryView, self).get_context_data(**kwargs)
         context['category'] = self.category
+        context['settings'] = settings
         context['most_recent'] = most_recent
         context['category_count'] = category_count
         return context
@@ -41,9 +44,11 @@ class SearchListView(ListView):
     def get_context_data(self, *args, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super(SearchListView, self).get_context_data(*args, **kwargs)
         context['head_title'] = 'Search'
         context['most_recent'] = most_recent
+        context['settings'] = settings
         context['category_count'] = category_count
         context['query'] = self.request.GET.get('q')
         return context
@@ -52,7 +57,7 @@ class SearchListView(ListView):
         request = self.request
         query = request.GET.get('q')
         if query is not None:
-            lookups = Q(title__icontains=query) | Q(content__icontains=query)
+            lookups = Q(title__icontains=query) | Q(content__icontains=query) | Q(categories__title__icontains=query)
             return Post.objects.filter(lookups).distinct().order_by('-timestamp')
         return redirect('search/search-none.html')
 
@@ -66,8 +71,10 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
+        context['settings'] = settings
         context['category_count'] = category_count
         return context
 
@@ -80,8 +87,10 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
+        context['settings'] = settings
         context['category_count'] = category_count
         context['form'] = self.form
         return context
@@ -108,9 +117,11 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['category_count'] = category_count
+        context['settings'] = settings
         context['title'] = 'Create'
         context['submit'] = 'Create Post'
         context['head_title'] = 'Create Post'
@@ -137,10 +148,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['category_count'] = category_count
         context['title'] = 'Update'
+        context['settings'] = settings
         context['submit'] = 'Update Post'
         context['head_title'] = 'Update Post'
         return context
@@ -160,9 +173,11 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['category_count'] = category_count
+        context['settings'] = settings
         context['title'] = 'Lists of Category'
         context['head_title'] = 'Lists of Category'
         return context
@@ -182,9 +197,11 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['category_count'] = category_count
+        context['settings'] = settings
         context['title'] = 'Add New Category'
         context['submit'] = 'Create Category'
         context['head_title'] = 'Add new category'
@@ -202,9 +219,11 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
+        settings = Setting.objects.last()
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['category_count'] = category_count
+        context['settings'] = settings
         context['title'] = 'Edit Category'
         context['submit'] = 'Update Category'
         context['head_title'] = 'Edit Category'
