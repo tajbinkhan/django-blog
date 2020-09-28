@@ -8,12 +8,13 @@
 					<h6 class="text-white">Django Blog</h6>
 				</div>
 				<div class="contact-details">
-					{{ settings.footer_1 }}
+					<p>{{ settings.first_info }}</p>
+					<p>{{ settings.second_info }}</p>
 					<p>Email: <a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
 					<ul class="social-menu">
-						<li class="list-inline-item"><a href="{{ settings.facebook }}"><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href="{{ settings.instagram }}"><i class="fa fa-instagram"></i></a></li>
-						<li class="list-inline-item"><a href="{{ settings.youtube }}"><i class="fa fa-youtube"></i></a></li>
+						<li class="list-inline-item"><a href="{{ settings.facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="{{ settings.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="{{ settings.youtube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
 					</ul>
 				</div>
 			</div>

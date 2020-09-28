@@ -17,16 +17,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-from user import views as users_views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
 	path('', include('blog.urls')),
     path('', include('settings.urls')),
-    path('admin/', admin.site.urls),
-    path('register/', users_views.register, name='register'),
-    path('login/', users_views.login_page, name='login'),
-    path('logout/', users_views.logout_page, name='logout'),
-    path('profile/', users_views.profile, name='profile'),
+    path('accounts/', include('user.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]
 

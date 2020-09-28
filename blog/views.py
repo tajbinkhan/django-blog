@@ -57,9 +57,10 @@ class SearchListView(ListView):
         request = self.request
         query = request.GET.get('q')
         if query is not None:
-            lookups = Q(title__icontains=query) | Q(content__icontains=query) | Q(categories__title__icontains=query)
+            lookups = (Q(title__icontains=query) | 
+            Q(content__icontains=query) | 
+            Q(categories__title__icontains=query))
             return Post.objects.filter(lookups).distinct().order_by('-timestamp')
-        return redirect('search/search-none.html')
 
 class PostListView(ListView):
     model = Post
@@ -68,7 +69,7 @@ class PostListView(ListView):
     ordering = ['-timestamp']
     paginate_by = 6
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
         settings = Setting.objects.last()
@@ -77,7 +78,6 @@ class PostListView(ListView):
         context['settings'] = settings
         context['category_count'] = category_count
         return context
-
 
 class PostDetailView(DetailView):
     model = Post

@@ -4,7 +4,8 @@ from django.db import models
 
 class Setting(models.Model):
 	title = models.CharField(max_length=120)
-	footer_1 = models.TextField()
+	first_info = models.CharField(max_length=120)
+	second_info = models.CharField(max_length=120)
 	email = models.EmailField(max_length=50)
 	facebook = models.CharField(max_length=50)
 	instagram = models.CharField(max_length=50)
