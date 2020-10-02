@@ -3,6 +3,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 {% if head_title %}
 	<title>{{ head_title }} - Django Blog</title>
+{% elif request.resolver_match.url_name == 'post_detail' %}
+	<title>{{ object.title }} - Django Blog</title>
+{% elif request.resolver_match.url_name == 'post_by_category' %}
+	<title>{{ category.title }} - Django Blog</title>
 {% else %}
 	<title>Django Blog - For Django Project</title>
 {% endif %}

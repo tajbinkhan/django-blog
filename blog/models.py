@@ -19,8 +19,8 @@ def get_filename_ext(filepath):
 def upload_image_path(instance, filename):
     new_filename = datetime.datetime.now()
     name, ext = get_filename_ext(filename)
-    final_filename = f'{new_filename}{ext}'
-    return f'products/{final_filename}'
+    final_filename = f'blog-{new_filename}{ext}'
+    return f'media/{final_filename}'
 
 class Category(models.Model):
     title = models.CharField(max_length=120)

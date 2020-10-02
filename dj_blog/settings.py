@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['localhost', 'evankhan.pythonanywhere.com']
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'user.apps.UserConfig',
-    'settings.apps.SettingsConfig',
+    'search.apps.SearchConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,3 +162,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tajbink@gmail.com'
+EMAIL_HOST_PASSWORD = 'ctvyjugeiuzidrah'
+EMAIL_USE_TLS = True

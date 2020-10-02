@@ -15,6 +15,9 @@
             <div class="media-body">
               <h2 class="account-heading">{{ user.username }}</h2>
               <p class="text-secondary">{{ user.email }}</p>
+              <div class="form-group">
+                <a href="{% url 'password_change' %}" class="btn btn-dark">Change Password</a>
+              </div>
             </div>
           </div>
           <form method="POST" enctype="multipart/form-data">
