@@ -18,7 +18,7 @@
 								<div class="post col-xl-6">
 									<div class="post-thumbnail">
 										<a href="{% url 'post_detail' post.slug %}">
-										<img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid" width="640" height="426"></a>
+										<img src="{{ post.img_thumbnail.url }}" alt="..." class="img-fluid" width="640" height="426"></a>
 									</div>
 									<div class="post-details">
 										<div class="post-meta d-flex justify-content-between">
@@ -91,7 +91,7 @@
 					<div class="row">
 						{% for post in most_recent %}
 							<div class="post col-md-4">
-								<div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{ post.thumbnail.url }}"
+								<div class="post-thumbnail"><a href="{% url 'post_detail' post.slug %}"><img src="{{ post.img_thumbnail.url }}"
 								alt="..." class="img-fluid"></a></div>
 								<div class="post-details">
 									<div class="post-meta d-flex justify-content-between">

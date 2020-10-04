@@ -22,7 +22,7 @@
 				{% for post in most_recent %}
 					<a href="{{ post.get_absolute_url }}">
 						<div class="item d-flex align-items-center">
-							<div class="image"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
+							<div class="image"><img src="{{ post.img_thumbnail.url }}" alt="..." class="img-fluid"></div>
 							<div class="title"><strong class="text-capitalize" style="line-height: 1.3em;">{{ post.title}}</strong>
 								<div class="d-flex align-items-center">
 									<div class="comments"><i class="icon-comment"></i>{{ post.comments.count }}</div>
