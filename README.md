@@ -4,6 +4,9 @@ Getting Started With Djagno Blog With Django Framework
 This blog is made with django framework and the django version is 3.0.3. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more. 
 
 ## Features on this blog
+### v3.6
+* In this version the uploaded image will be resized and reduce the image size for site speed up.
+
 ### v3.5
 * User can reset his/her password through reset password form.
 * User will receive a password reset mail on their registered account on the site.
