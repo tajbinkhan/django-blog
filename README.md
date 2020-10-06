@@ -4,6 +4,10 @@ Getting Started With Djagno Blog With Django Framework
 This blog is made with django framework and the django version is 3.0.3. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more. 
 
 ## Features on this blog
+### v3.7
+* 404 error page added.
+* Invalid URL shows the error page.
+
 ### v3.6
 * In this version the uploaded image will be resized and reduce the image size for site speed up.
 
