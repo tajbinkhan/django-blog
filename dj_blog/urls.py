@@ -21,7 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('', include('blog.urls')),
-    path('', include('search.urls')),
+    path('post/', include('search.urls')),
     path('accounts/', include('user.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]
@@ -29,3 +29,5 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'blog.views.error'

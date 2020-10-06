@@ -55,6 +55,7 @@ def login_page(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
+                messages.success(request, 'Logged In Successfully.')
                 return redirect('blog-home')
         else:
             messages.error(request, 'Please enter a correct username and password. Note that both fields may be case-sensitive.')

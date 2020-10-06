@@ -7,7 +7,6 @@ class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
-
 class PostForm(forms.ModelForm):
     content = forms.CharField(
         widget=TinyMCEWidget(
@@ -31,11 +30,11 @@ class CategoryForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(attrs={
-        'class': 'form_control text-appear',
-        'placeholder': 'Type your comment',
-        'id': 'usercomment',
-        'rows': '4',
-        'cols': '90'
+            'class': 'form_control text-appear',
+            'placeholder': 'Type your comment',
+            'id': 'usercomment',
+            'rows': '4',
+            'cols': '90'
         }))
     class Meta:
         model = Comment

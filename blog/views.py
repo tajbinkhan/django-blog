@@ -9,6 +9,16 @@ from .forms import CommentForm, PostForm, CategoryForm
 
 # Create your views here.
 
+def error(request, exception): 
+    category_count = get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[:3]
+    context = {
+        'most_recent': most_recent,
+        'category_count': category_count,
+        'head_title': 'Page not found'
+    }
+    return render(request, 'error.html', context)
+
 def get_category_count():
     category_query = Post.objects.values('categories__slug', 'categories__title').annotate(Count('categories__title'))
     return category_query
