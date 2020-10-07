@@ -11,11 +11,9 @@ from .views import (
 	CategoryListView,
 	CategoryCreateView,
 	CategoryUpdateView,
-	CategoryDeleteView,
-	error)
+	CategoryDeleteView)
 
 urlpatterns = [
-	# path('error/', error, name='error'),
 	path('post/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
 	path('', PostListView.as_view(), name='blog-home'),
 	path('post/create/', PostCreateView.as_view(), name='post_create'),
