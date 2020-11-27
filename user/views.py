@@ -32,14 +32,16 @@ from django.utils.http import (
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.http import JsonResponse
+from django.views.generic import View
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
+import json
 
 UserModel = get_user_model()
 
 # Create your views here.
-
 
 def login_page(request):
     category_count = get_category_count()

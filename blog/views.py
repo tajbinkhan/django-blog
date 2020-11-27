@@ -27,7 +27,7 @@ class PostCategoryView(ListView):
     model = Post
     template_name = 'blog/category.html'
     context_object_name = 'categories'
-    ordering = ['-date_created']
+    ordering = ['-timestamp']
     paginate_by = 6
 
     def get_queryset(self):

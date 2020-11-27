@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
-from .views import register, login_page, logout_page, profile, PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from .views import register, login_page, logout_page, profile, PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView#, UsernameValidationView, EmailValidationView
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
 	path('register/', views.register, name='register'),

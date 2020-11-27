@@ -2,6 +2,19 @@
 {% load static %}
 {% block content %}
 <div class="container">
+	{% if messages %}
+		{% for message in messages %}
+			<div onload="loginAlert()">
+				<div class="alert hide loginAlert">
+					<span class="fas fa-exclamation-circle"></span>
+					<span class="msg">Success: You're logged in successfully.</span>
+					<div class="close-btn">
+						<span class="fas fa-times"></span>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
 	<div class="row">
 		<!-- Latest Posts -->
 		<main class="posts-listing col-lg-8">

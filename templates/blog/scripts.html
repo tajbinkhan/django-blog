@@ -9,4 +9,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js" integrity="sha512-j7/1CJweOskkQiS5RD9W8zhEG9D9vpgByNGxPIqkO5KrXrwyDAroM9aQ9w8J7oRqwxGyz429hPVk/zR6IOMtSA==" crossorigin="anonymous"></script>
 <script src="{% static 'blog/js/front.js' %}"></script>
 <script src='{% static "blog/js/highlight.pack.js" %}'></script>
+<script src='{% static "blog/js/register.js" %}'></script>
 <script>hljs.initHighlightingOnLoad();</script>
+<script>
+	function loginAlert(){
+		$('.loginAlert').addClass("show");
+		$('.loginAlert').removeClass("hide");
+		$('.loginAlert').addClass("showAlert");
+		setTimeout(function(){
+			$('.loginAlert').removeClass("show");
+			$('.loginAlert').addClass("hide");
+			},2000);
+		};
+		$('.close-btn').click(function(){
+			$('.loginAlert').removeClass("show");
+			$('.loginAlert').addClass("hide");
+		});
+</script>

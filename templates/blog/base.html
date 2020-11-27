@@ -3,7 +3,7 @@
   <head>
     {% include 'blog/head.html' %}
   </head>
-  <body>
+  <body {% if messages %}{% for message in messages %}onload="loginAlert()"{% endfor %}{% endif %}>
 
   	{% include 'blog/header.html' %}
 
