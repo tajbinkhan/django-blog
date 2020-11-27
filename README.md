@@ -3,7 +3,17 @@ Getting Started With Djagno Blog With Django Framework
 
 This blog is made with django framework and the django version is 3.0.3. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more. 
 
-## Features on this blog
+# Features on this blog
+* User Registration
+* User Login & Logout
+* User Profile
+* Create, Update, Edit & Delete Posts
+* Comments
+* Search
+* User Change Password
+* Password Reset
+* Customized admin panel
+
 ### v3.8
 * Session Timeout Added.
 * Login success message display.
