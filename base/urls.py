@@ -5,11 +5,15 @@ from django.urls import path, include
 from blog.views import privacy_policy, terms_of_service
 from user.views import MyPasswordChangeView, MyPasswordSetView
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('privacy-policy/', privacy_policy, name='privacy-policy'),
 	path('terms-of-service/', terms_of_service, name='terms-of-service'),
+	path('accounts/', RedirectView.as_view(url=reverse_lazy('account_login'), permanent=False)),
+	path('user/', RedirectView.as_view(url=reverse_lazy('profile'), permanent=False)),
 	path('', include('blog.urls')),
 	path('post/', include('search.urls')),
 	path('user/', include('user.urls')),
