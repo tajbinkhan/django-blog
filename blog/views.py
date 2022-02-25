@@ -9,13 +9,22 @@ from .forms import CommentForm, PostForm, CategoryForm
 # Create your views here.
 
 def error(request, exception):
-	return render(request, 'error.html')
+	context = {
+		'head_title': 'Not found',
+	}
+	return render(request, 'error.html', context)
 
 def privacy_policy(request):
-	return render(request, 'blog/privacy_policy.html')
+	context = {
+		'head_title': 'Privacy Policy',
+	}
+	return render(request, 'blog/privacy_policy.html', context)
 
 def terms_of_service(request):
-	return render(request, 'blog/terms_of_service.html')
+	context = {
+		'head_title': 'Terms of Service',
+	}
+	return render(request, 'blog/terms_of_service.html', context)
 
 class PostCategoryView(ListView):
 	model = Post
