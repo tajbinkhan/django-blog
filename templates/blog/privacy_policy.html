@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8" style="margin-top: 3.1rem!important;">
+			<h1 class="container mb-5">{{ head_title }}</h1>
+		</div>
+		{% include 'blog/sidebar.html' %}
+	</div>
+</div>
+{% endblock %}

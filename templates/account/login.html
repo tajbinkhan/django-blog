@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load socialaccount %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8" style="margin-top: 3.1rem!important;">
+			<div class="content-section">
+				<form method="POST">
+					{% csrf_token %}
+					<fieldset class="form-group">
+						<legend class="border-bottom mb-4">Log In</legend>
+						{% for key, value in form.errors.items %}
+							{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
+						{% endfor %}
+							<div id="div_id_username" class="form-group">
+								<label for="id_username" class=" requiredField">
+									Username or Email<span class="asteriskField">*</span>
+								</label>
+								<div class="">
+									{{ form.login }}
+								</div>
+							</div>
+							<div id="div_id_password" class="form-group">
+								<label for="id_password" class=" requiredField">
+										Password<span class="asteriskField">*</span>
+								</label>
+								<div class="">
+									<input type="password" name="password" class="textInput form-control" required id="id_password" placeholder="Password">
+								</div>
+							</div>
+							<div id="div_id_remember_me" class="form-group">
+								<input type="checkbox" name="remember" id="remember" class="form-check-input" checked>
+								<label for="remember" class="form-check-label">Remember Me</label>
+							</div>
+						</fieldset>
+						{% if redirect_field_value %}
+						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+						{% endif %}
+						<div class="form-group">
+							<button class="btn btn-outline-info" type="submit">Login</button>
+							<a href="{% url 'account_reset_password' %}" class="btn btn-outline-warning">Forget Password?</a>
+						</div>
+				</form>
+				<p>-or-</p>
+				<div style="margin-bottom: 10px;">
+					<a href="{% provider_login_url 'facebook' %}"><img src="{% static 'blog/img/facebook.png' %}" alt="" width="35" height="35"></a>
+					<a href="{% provider_login_url 'google' %}" style="margin-left: 5px;"><img src="{% static 'blog/img/google.png' %}" alt="" width="35" height="35"></a>
+				</div>
+				<div class="border-top pt-3">
+					<small class="text-muted">
+						Need An Account? <a class="ml-2" href="{% url 'account_signup' %}">Sign Up Now</a>
+					</small>
+				</div>
+			</div>
+		</div>
+		{% include 'blog/sidebar.html' %}
+	</div>
+</div>
+{% endblock content %}

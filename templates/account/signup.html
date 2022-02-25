@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load socialaccount %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8" style="margin-top: 3.1rem!important;">
+      <div class="content-section">
+        <form method="POST" action="">
+          {% csrf_token %}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Register with valid information</legend>
+            {{ form|crispy }}
+          </fieldset>
+          <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+          </div>
+        </form>
+				<p>-or-</p>
+				<div style="margin-bottom: 10px;">
+					<a href="{% provider_login_url 'facebook' %}"><img src="{% static 'blog/img/facebook.png' %}" alt="" width="35" height="35"></a>
+					<a href="{% provider_login_url 'google' %}" style="margin-left: 5px;"><img src="{% static 'blog/img/google.png' %}" alt="" width="35" height="35"></a>
+				</div>
+        <div class="border-top pt-3">
+          <small class="text-muted">
+            Already Have An Account? <a href="{% url 'account_login' %}" class="ml-2">Log In</a>
+          </small>
+        </div>
+      </div>
+    </div>
+    {% include 'blog/sidebar.html' %}
+  </div>
+</div>
+{% endblock content %}

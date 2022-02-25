@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0069D9;
+    border-color: #0069D9;
+}
+</style>
+<div class="container">
+	<div class="row">
+		<!-- Latest Posts -->
+		<main class="posts-listing col-lg-8">
+			<div class="container"><div class="col-md-12">
+					<div class="error-template">
+						<h1>Oops!</h1>
+						<h2>404 Not Found</h2>
+						<div class="error-details">Sorry, an error has occured, Requested page not found!</div>
+						<div class="error-actions">
+							<a href="{% url 'blog-home' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Take Me Home</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+{% include 'blog/sidebar.html' %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+<!-- JavaScript files-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js"></script>
+<script src="{% static 'blog/js/front.js' %}"></script>
+<script src='{% static "blog/js/highlight.pack.js" %}'></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+	function loginAlert(){
+		$('.loginAlert').addClass("show");
+		$('.loginAlert').removeClass("hide");
+		$('.loginAlert').addClass("showAlert");
+		setTimeout(function(){
+			$('.loginAlert').removeClass("show");
+			$('.loginAlert').addClass("hide");
+			},5000);
+		};
+		$('.close-btn').click(function(){
+			$('.loginAlert').removeClass("show");
+			$('.loginAlert').addClass("hide");
+		});
+</script>

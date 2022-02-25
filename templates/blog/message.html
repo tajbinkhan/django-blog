@@ -1,0 +1,25 @@
+{% if messages %}
+	{% for message in messages %}
+		{% if message.tags == 'success' %}
+		<div onload="loginAlert()">
+			<div class="alert hide loginAlert"">
+				<span class="fas fa-exclamation-circle"></span>
+				<span class="msg">{{ message }}</span>
+				<div class="close-btn">
+					<span class="fas fa-times"></span>
+				</div>
+			</div>
+		</div>
+		{% elif message.tags == 'error' %}
+		<div onload="loginAlert()">
+			<div class="alert hide loginAlert" style="background-color: #f3c5c5; border-left: 3px solid #bb6666;">
+				<span class="fas fa-times-circle" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #bb6666; font-size: 18px;"></span>
+				<span class="msg" style="color: #bb6666;">{{ message }}</span>
+				<div class="close-btn" style="color: #ea9494; background-color: #ea9494;">
+					<span class="fas fa-times" style="color: #f3c5c5;"></span>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}

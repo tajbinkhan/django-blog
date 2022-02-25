@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'blog/head.html' %}
+  </head>
+  <body {% if messages %}{% for message in messages %}onload="loginAlert()"{% endfor %}{% endif %}>
+
+  	{% include 'blog/header.html' %}
+
+		{% include 'blog/message.html' %}
+
+  	{% block content %}{% endblock %}
+
+  	{% include 'blog/footer.html' %}
+
+  	{% include 'blog/scripts.html' %}
+  	</body>
+</html>

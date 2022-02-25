@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8" style="margin-top: 3.1rem!important;">
+				<div class="content-section">
+					<fieldset class="form-group">
+						<legend class="border-bottom mb-4">Confirm E-mail Address</legend>
+						{% if confirmation %}
+						{% user_display confirmation.email_address.user as user_display %}
+						<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user <b>{{ user_display }}</b>.{% endblocktrans %}</p>
+					</fieldset>
+					<div class="form-group">
+						<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-outline-info">Confirm</button>
+						</form>
+					</div>
+					{% else %}
+					{% url 'account_email' as email_url %}
+					<p>This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.</p>
+					</fieldset>
+					{% endif %}
+					<div class="border-top pt-3">
+						<small class="text-muted">
+						Need An Account? <a class="ml-2" href="{% url 'account_signup' %}">Sign Up Now</a>
+						</small>
+					</div>
+				</div>
+			</div>
+			{% include 'blog/sidebar.html' %}
+		</div>
+	</div>
+{% endblock content %}

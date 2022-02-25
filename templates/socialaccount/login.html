@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8" style="margin-top: 3.1rem!important;">
+				<div class="content-section">
+					<fieldset class="form-group">
+						{% if process == "connect" %}
+							<legend class="border-bottom mb-4">{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</legend>
+							<p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
+						{% else %}
+							<legend class="border-bottom mb-4">{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</legend>
+							<p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p>
+						{% endif %}
+					</fieldset>
+					<div class="form-group">
+						<form method="post">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-outline-info">{% trans "Continue" %}</button>
+						</form>
+					</div>
+					{% if process == "connect" %}
+					{% else %}
+					<div class="border-top pt-3">
+						<small class="text-muted">
+						Need An Account? <a class="ml-2" href="{% url 'account_signup' %}">Sign Up Now</a>
+						</small>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			{% include 'blog/sidebar.html' %}
+		</div>
+	</div>
+{% endblock content %}

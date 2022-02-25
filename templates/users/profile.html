@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8" style="margin-top: 3.1rem!important;">
+        <div class="content-section">
+          <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+              <h2 class="account-heading">{{ user.username }}</h2>
+              <p class="text-secondary">{{ user.email }}</p>
+              <div class="form-group">
+                <a href="{% url 'account_change_password' %}" class="btn btn-dark">
+									{% if user.has_usable_password %}
+									Change Password
+									{% else %}
+									Set Password
+									{% endif %}
+								</a>
+                <a href="{% url 'account_email' %}" class="btn btn-danger">Change E-mail</a>
+              </div>
+            </div>
+          </div>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Profile Info</legend>
+              {{ u_form|crispy }}
+              {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update</button>
+              <a href="{% url 'socialaccount_connections' %}" class="btn btn-blue" type="submit">Social Network</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      {% include 'blog/sidebar.html' %}
+    </div>
+  </div>
+{% endblock content %}

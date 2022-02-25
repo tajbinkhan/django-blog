@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8" style="margin-top: 3.1rem!important;">
+				<div class="content-section">
+					<fieldset class="form-group">
+						<legend class="border-bottom mb-4">Login Cancelled</legend>
+						<p>You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please click the below <b>sign in</b> button again.</p>
+					</fieldset>
+					<div class="form-group">
+						{% url 'account_login' as login_url %}
+						<a href="{{login_url}}" class="btn btn-outline-info">Sign In</a>
+					</div>
+					<div class="border-top pt-3">
+						<small class="text-muted">
+						Need An Account? <a class="ml-2" href="{% url 'account_signup' %}">Sign Up Now</a>
+						</small>
+					</div>
+				</div>
+			</div>
+			{% include 'blog/sidebar.html' %}
+		</div>
+	</div>
+{% endblock content %}
