@@ -2,9 +2,8 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-		<div class="col-8 offset-2 mt-4">
+		<div class="col-8" style="margin-top: 3.1rem!important;">
 			<div class="content-section">
-				{% if user.is_superuser %}
 				<form method="POST" action="">
 					{% csrf_token %}
 					<fieldset class="form-group">
@@ -16,16 +15,9 @@
 						<a class="btn btn-outline-secondary" type="submit" href="{% url 'category_list' %}">Cancel</a>
 					</div>
 				</form>
-				{% else %}
-				<h2>You are not allowed to do anything. Go back.</h2>
-				<div class="border-top pt-3">
-					<small class="text-muted">
-					<a href="{% url 'blog-home' %}" class="btn btn-outline-secondary">Back to home</a>
-					</small>
-				</div>
-				{% endif %}
 			</div>
 		</div>
+		{% include 'blog/sidebar.html' %}
 	</div>
 </div>
 {% endblock %}

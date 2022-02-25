@@ -5,7 +5,6 @@
 		<div class="row">
 			<div class="col-lg-8" style="margin-top: 3.1rem!important;">
 				<div class="content-section">
-					{% if user.is_superuser %}
 					<a href="{% url 'category_create' %}" class="btn btn-outline-dark mb-4 mt-3" type="submit">Add New Category</a>
 					<a href="{% url 'post_create' %}" class="btn btn-outline-dark mb-4 mt-3 ml-2" type="submit">Back to Create Post</a>
 					<table class="table table-bordered">
@@ -26,14 +25,6 @@
 							{% endfor %}
 						</tbody>
 					</table>
-					{% else %}
-					<h2>You are not allowed to view categories. Go back.</h2>
-					<div class="border-top pt-3">
-						<small class="text-muted">
-						<a href="{% url 'blog-home' %}" class="btn btn-outline-secondary">Back to home</a>
-						</small>
-					</div>
-					{% endif %}
 				</div>
 			</div>
 			{% include 'blog/sidebar.html' %}

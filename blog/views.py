@@ -4,6 +4,8 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Post, Category
+from django.utils.decorators import method_decorator
+from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
 
 # Create your views here.
@@ -68,6 +70,7 @@ class PostDetailView(DetailView):
 			form.save()
 			return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
 
+@method_decorator(superuser_required, name='dispatch')
 class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 	model = Post
 	template_name = 'blog/post_form.html'
@@ -85,6 +88,7 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 		context['head_title'] = 'Create Post'
 		return context
 
+@method_decorator(superuser_required, name='dispatch')
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	model = Post
 	success_url = reverse_lazy('blog-home')
@@ -102,6 +106,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 			return True
 		return False
 
+@method_decorator(superuser_required, name='dispatch')
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Post
 	form_class = PostForm
@@ -123,6 +128,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 			return True
 		return False
 
+@method_decorator(superuser_required, name='dispatch')
 class CategoryListView(ListView):
 	model = Category
 	template_name = 'blog/category_list_form.html'
@@ -135,6 +141,7 @@ class CategoryListView(ListView):
 		context['head_title'] = 'Lists of Category'
 		return context
 
+@method_decorator(superuser_required, name='dispatch')
 class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 	model = Category
 	template_name = 'blog/category_form.html'
@@ -154,6 +161,7 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
 		context['head_title'] = 'Add new category'
 		return context
 
+@method_decorator(superuser_required, name='dispatch')
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 	model = Category
 	form_class = CategoryForm
@@ -176,6 +184,7 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 			return True
 		return False
 
+@method_decorator(superuser_required, name='dispatch')
 class CategoryDeleteView(DeleteView):
 	model = Category
 	success_url = reverse_lazy('category_list')
