@@ -7,6 +7,7 @@ from .models import Post, Category
 from django.utils.decorators import method_decorator
 from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 
@@ -71,11 +72,12 @@ class PostDetailView(DetailView):
 			return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
 
 @method_decorator(superuser_required, name='dispatch')
-class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin, CreateView):
 	model = Post
 	template_name = 'blog/post_form.html'
 	form_class = PostForm
 	permission_required = 'blog.fields'
+	success_message = "%(title)s was created successfully"
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -89,9 +91,10 @@ class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 		return context
 
 @method_decorator(superuser_required, name='dispatch')
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView):
 	model = Post
 	success_url = reverse_lazy('blog-home')
+	success_message = "%(title)s was deleted successfully"
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -107,9 +110,10 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 		return False
 
 @method_decorator(superuser_required, name='dispatch')
-class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView):
 	model = Post
 	form_class = PostForm
+	success_message = "%(title)s was updated successfully"
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -129,7 +133,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 		return False
 
 @method_decorator(superuser_required, name='dispatch')
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
 	model = Category
 	template_name = 'blog/category_list_form.html'
 	context_object_name = 'category'
@@ -142,12 +146,13 @@ class CategoryListView(ListView):
 		return context
 
 @method_decorator(superuser_required, name='dispatch')
-class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin, CreateView):
 	model = Category
 	template_name = 'blog/category_form.html'
 	form_class = CategoryForm
 	permission_required = 'blog.fields'
 	success_url = reverse_lazy('category_list')
+	success_message = "Category %(title)s was created successfully"
 
 	def form_valid(self, form):
 		category_form = super(CategoryCreateView, self).form_valid(form)
@@ -162,10 +167,11 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
 		return context
 
 @method_decorator(superuser_required, name='dispatch')
-class CategoryUpdateView(LoginRequiredMixin, UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	model = Category
 	form_class = CategoryForm
 	success_url = reverse_lazy('category_list')
+	success_message = "Category %(title)s was updated successfully"
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -185,9 +191,10 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 		return False
 
 @method_decorator(superuser_required, name='dispatch')
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 	model = Category
 	success_url = reverse_lazy('category_list')
+	success_message = "Category %(title)s was updated successfully"
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)

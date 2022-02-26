@@ -8,15 +8,41 @@ class TinyMCEWidget(TinyMCE):
 		return False
 
 class PostForm(forms.ModelForm):
+	title = forms.CharField(
+		widget=forms.TextInput(
+			attrs={
+				'placeholder': 'Enter post title (required)'
+			}
+		)
+	)
+	slug = forms.CharField(
+		required = False,
+		widget=forms.TextInput(
+			attrs={
+				'placeholder': 'Post slug (keep empty)',
+			}
+		)
+	)
+	overview = forms.CharField(
+		widget=forms.Textarea(
+			attrs={
+				'placeholder': 'Give an overview of the post (It will display in the post list)',
+			}
+		)
+	)
 	content = forms.CharField(
 		widget=TinyMCEWidget(
-			attrs={'required': False, 'cols': 20, 'rows': 10}
+			attrs={
+				'placeholder': 'Here goes post content in it',
+				'cols': 20,
+				'rows': 10
+			}
 		)
 	)
 
 	class Meta:
 		model = Post
-		fields = ('title', 'overview', 'content', 'img_thumbnail', 'categories', 'previous_post', 'next_post', 'publish')
+		fields = ('title', 'slug', 'overview', 'content', 'img_thumbnail', 'categories', 'previous_post', 'next_post', 'publish')
 
 	def __init__(self, *args, **kwargs):
 		super(PostForm,self).__init__(*args, **kwargs)

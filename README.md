@@ -17,6 +17,10 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * User Email Verification
 * Add Multiple Email Account
 
+### v4.1
+* Messages are shown when post update, delete or created.
+* Post form fields updated.
+
 ### v4.0
 * Django Allauth Feature Added.
 * New Profile Customization.
