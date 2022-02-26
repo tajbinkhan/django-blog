@@ -3,6 +3,9 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from allauth.account.signals import user_signed_up
+from django.dispatch import receiver
+from django.core.mail import send_mail
 
 # Create your models here.
 
@@ -32,3 +35,23 @@ class Profile(models.Model):
 			output_size = (300, 300)
 			img.thumbnail(output_size)
 			img.save(self.image.path)
+
+class NewUserEmailSettings(models.Model):
+	subject = models.CharField(max_length=25)
+	message = models.TextField()
+	from_mail = models.EmailField(max_length=50, verbose_name='From Mail')
+	to_mail = models.EmailField(max_length=50, verbose_name='To Mail')
+
+	def __str__(self):
+		return self.subject
+
+@receiver(user_signed_up, dispatch_uid="8528816d-def2-41e5-8700-b079fc37c04d")
+def user_signed_up_(request, user, **kwargs):
+	mail_obj = NewUserEmailSettings.objects.latest('id')
+	send_mail(
+		mail_obj.subject,
+		mail_obj.message,
+		mail_obj.from_mail,
+		[mail_obj.to_mail],
+		fail_silently=False,
+	)
