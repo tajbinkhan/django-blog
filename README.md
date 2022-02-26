@@ -20,6 +20,7 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 ### v4.1
 * Messages are shown when post update, delete or created.
 * Post form fields updated.
+* Template customization update.
 
 ### v4.0
 * Django Allauth Feature Added.

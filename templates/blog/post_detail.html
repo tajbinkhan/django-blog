@@ -29,7 +29,9 @@
 							</div>
 							<div class="d-flex align-items-center flex-wrap">
 								<div class="date"><i class="icon-clock"></i> {{ object.timestamp|timesince }}</div>
-								<div class="comments meta-last"><i class="icon-comment"></i>{{ object.comments.count }}</div>
+								<a href="#post-comments">
+									<div class="comments meta-last"><i class="icon-comment"></i>{{ object.comments.count }}</div>
+								</a>
 							</div>
 						</div>
 						<div class="post-body">
@@ -55,7 +57,7 @@
 								</a>
 							{% endif %}
 						</div>
-						<div class="post-comments">
+						<div class="post-comments" id="post-comments">
 							<header>
 								<h3 class="h6">Post Comments<span class="no-of-comments">({{ object.comments.count }})</span></h3>
 							</header>
