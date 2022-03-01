@@ -10,7 +10,6 @@ from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 
-# Create your views here.
 
 def error(request, exception):
 	context = {
@@ -18,17 +17,20 @@ def error(request, exception):
 	}
 	return render(request, 'error.html', context)
 
+
 def privacy_policy(request):
 	context = {
 		'head_title': 'Privacy Policy',
 	}
 	return render(request, 'blog/privacy_policy.html', context)
 
+
 def terms_of_service(request):
 	context = {
 		'head_title': 'Terms of Service',
 	}
 	return render(request, 'blog/terms_of_service.html', context)
+
 
 class PostCategoryView(ListView):
 	model = Post
@@ -46,12 +48,14 @@ class PostCategoryView(ListView):
 		context['category'] = self.category
 		return context
 
+
 class PostListView(ListView):
 	model = Post
 	template_name = 'blog/index.html'
 	context_object_name = 'posts'
 	ordering = ['-timestamp']
 	paginate_by = 6
+
 
 class PostDetailView(DetailView):
 	model = Post
@@ -80,6 +84,7 @@ class PostDetailView(DetailView):
 			)
 			return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
 
+
 @method_decorator(superuser_required, name='dispatch')
 class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin, CreateView):
 	model = Post
@@ -99,6 +104,7 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequired
 		context['head_title'] = 'Create Post'
 		return context
 
+
 @method_decorator(superuser_required, name='dispatch')
 class PostDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView):
 	model = Post
@@ -107,16 +113,17 @@ class PostDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Delete'
-		context['submit'] = 'Delete Post'
-		context['head_title'] = 'Delete Post'
+		context.update({
+			'title': 'Delete',
+			'submit': 'Delete Post',
+			'head_title': 'Delete Post',
+		})
 		return context
 
 	def test_func(self):
 		post = self.get_object()
-		if self.request.user == post.author:
-			return True
-		return False
+		return self.request.user == post.author
+
 
 @method_decorator(superuser_required, name='dispatch')
 class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView):
@@ -130,16 +137,17 @@ class PostUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixi
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Update'
-		context['submit'] = 'Update Post'
-		context['head_title'] = 'Update Post'
+		context.update({
+			'title': 'Update',
+			'submit': 'Update Post',
+			'head_title': 'Update Post',
+		})
 		return context
 
 	def test_func(self):
 		post = self.get_object()
-		if self.request.user == post.author:
-			return True
-		return False
+		return self.request.user == post.author
+
 
 @method_decorator(superuser_required, name='dispatch')
 class CategoryListView(LoginRequiredMixin, ListView):
@@ -150,9 +158,12 @@ class CategoryListView(LoginRequiredMixin, ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Lists of Category'
-		context['head_title'] = 'Lists of Category'
+		context.update({
+			'title': 'Lists of Category',
+			'head_title': 'Lists of Category',
+		})
 		return context
+
 
 @method_decorator(superuser_required, name='dispatch')
 class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequiredMixin, CreateView):
@@ -170,10 +181,13 @@ class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequ
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Add New Category'
-		context['submit'] = 'Create Category'
-		context['head_title'] = 'Add new category'
+		context.update({
+			'title': 'Add New Category',
+			'submit': 'Create Category',
+			'head_title': 'Add new category',
+		})
 		return context
+
 
 @method_decorator(superuser_required, name='dispatch')
 class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -188,16 +202,17 @@ class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Edit Category'
-		context['submit'] = 'Update Category'
-		context['head_title'] = 'Edit Category'
+		context.update({
+			'title': 'Edit Category',
+			'submit': 'Update Category',
+			'head_title': 'Edit Category',
+		})
 		return context
 
 	def test_func(self):
 		category = self.get_object()
-		if self.request.user == category.author:
-			return True
-		return False
+		return self.request.user == category.author
+
 
 @method_decorator(superuser_required, name='dispatch')
 class CategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -207,13 +222,13 @@ class CategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Edit Category'
-		context['submit'] = 'Delete Category'
-		context['head_title'] = 'Delete Category'
+		context.update({
+			'title': 'Edit Category',
+			'submit': 'Delete Category',
+			'head_title': 'Delete Category',
+		})
 		return context
 
 	def test_func(self):
 		category = self.get_object()
-		if self.request.user == category.author:
-			return True
-		return False
+		return self.request.user == category.author

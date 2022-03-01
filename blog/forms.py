@@ -7,6 +7,7 @@ class TinyMCEWidget(TinyMCE):
 	def use_required_attribute(self, *args):
 		return False
 
+
 class PostForm(forms.ModelForm):
 	title = forms.CharField(
 		widget=forms.TextInput(
@@ -49,6 +50,7 @@ class PostForm(forms.ModelForm):
 		self.fields['previous_post'].empty_label = "Select Previous Post"
 		self.fields['next_post'].empty_label = "Select Next Post"
 
+
 class CategoryForm(forms.ModelForm):
 	title = forms.CharField(
 		widget=forms.TextInput(
@@ -69,6 +71,7 @@ class CategoryForm(forms.ModelForm):
 	class Meta:
 		model = Category
 		fields = ('title', 'slug',)
+
 
 class CommentForm(forms.ModelForm):
 	content = forms.CharField(

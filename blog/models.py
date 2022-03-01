@@ -8,18 +8,19 @@ from django.db import models
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 def get_filename_ext(filepath):
 	base_name = os.path.basename(filepath)
 	name, ext = os.path.splitext(base_name)
 	return name, ext
 
+
 def upload_image_path(instance, filename):
 	new_filename = datetime.datetime.now()
 	name, ext = get_filename_ext(filename)
 	final_filename = f'{new_filename}{ext}'
 	return f'blog-thumbnail/{final_filename}'
+
 
 class Category(models.Model):
 	title = models.CharField(max_length=120)
@@ -61,12 +62,15 @@ class Post(models.Model):
 		return self.comments.all().order_by('-created_on')
 
 	def save(self):
-		super().save()
+		super().save()  # this is potentially dangerous, a user might be able to upload e.g. a 10GB image file
 		img = Image.open(self.img_thumbnail.path)
 		if img.height > 426 or img.width > 640:
 			output_size = (426, 640)
+			# Next line is a performance hit if an image was uploaded extremely huge, resizing
+			# will take significant time to process
 			img.thumbnail(output_size)
 			img.save(self.img_thumbnail.path)
+
 
 class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -80,6 +84,7 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.user.username
 
+
 class CommentFormNotification(models.Model):
 	subject = models.CharField(max_length=25)
 	message = models.TextField()
@@ -89,14 +94,10 @@ class CommentFormNotification(models.Model):
 	def __str__(self):
 		return self.subject
 
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
+
+def pre_save_generate_unique_slug(sender, instance, *args, **kwargs):
 	if not instance.slug:
 		instance.slug = unique_slug_generator(instance)
 
-pre_save.connect(pre_save_post_receiver, sender=Post)
-
-def pre_save_category_receiver(sender, instance, *args, **kwargs):
-	if not instance.slug:
-		instance.slug = unique_slug_generator(instance)
-
-pre_save.connect(pre_save_category_receiver, sender=Category)
+pre_save.connect(pre_save_generate_unique_slug, sender=Category)
+pre_save.connect(pre_save_generate_unique_slug, sender=Post)

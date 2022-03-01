@@ -2,29 +2,31 @@ from django.contrib import admin
 from .models import Post, Category, Comment, CommentFormNotification
 from django.contrib.auth.models import Permission
 
-# Register your models here.
 
-class PostAdmin(admin.ModelAdmin):
-	list_display = ('title', 'timestamp', 'last_modified', 'previous_post', 'next_post')
+class SaveOnTop(admin.ModelAdmin):
 	save_on_top = True
+
+
+class PostAdmin(SaveOnTop):
+	list_display = ('title', 'timestamp', 'last_modified', 'previous_post', 'next_post')
 	search_fields = ['title', 'content']
 	prepopulated_fields = {'slug': ('title',)}
 
-class CategoryAdmin(admin.ModelAdmin):
+
+class CategoryAdmin(SaveOnTop):
 	list_display = ('title', 'slug', 'date_created', 'last_modified')
-	save_on_top = True
 	list_filter = ['date_created']
 	search_fields = ['title']
 
-class CommentAdmin(admin.ModelAdmin):
+
+class CommentAdmin(SaveOnTop):
 	list_display = ('user', 'content', 'post', 'created_on')
-	save_on_top = True
 	list_filter = ('created_on',)
 	search_fields = ('user', 'content')
 
-class CommentFormNotificationAdmin(admin.ModelAdmin):
+
+class CommentFormNotificationAdmin(SaveOnTop):
 	list_display = ('subject', 'from_mail', 'to_mail')
-	save_on_top = True
 	search_fields = ['user']
 
 admin.site.site_header = 'Admin Panel'
