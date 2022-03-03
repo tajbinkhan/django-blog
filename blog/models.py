@@ -83,6 +83,7 @@ class Comment(models.Model):
 class CommentFormNotification(models.Model):
 	subject = models.CharField(max_length=25)
 	message = models.TextField()
+	from_name = models.CharField(max_length=50, verbose_name='From Name')
 	from_mail = models.EmailField(max_length=50, verbose_name='From Mail')
 	to_mail = models.EmailField(max_length=50, verbose_name='To Mail')
 

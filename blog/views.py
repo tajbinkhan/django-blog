@@ -1,3 +1,4 @@
+import os
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
@@ -9,8 +10,19 @@ from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 # Create your views here.
+
+def comment_email_setting():
+	mail_obj = CommentFormNotification.objects.latest('id')
+	send_mail(
+		mail_obj.subject,
+		mail_obj.message,
+		f"{mail_obj.from_name} <{mail_obj.from_mail}>",
+		[mail_obj.to_mail],
+		fail_silently=False,
+	)
 
 def error(request, exception):
 	context = {
@@ -69,15 +81,8 @@ class PostDetailView(DetailView):
 			post = self.get_object()
 			form.instance.user = request.user
 			form.instance.post = post
+			comment_email_setting()
 			form.save()
-			mail_obj = CommentFormNotification.objects.latest('id')
-			send_mail(
-				mail_obj.subject,
-				mail_obj.message,
-				mail_obj.from_mail,
-				[mail_obj.to_mail],
-				fail_silently=False,
-			)
 			return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
 
 @method_decorator(superuser_required, name='dispatch')

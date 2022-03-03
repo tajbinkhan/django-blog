@@ -23,7 +23,7 @@ class CommentAdmin(admin.ModelAdmin):
 	search_fields = ('user', 'content')
 
 class CommentFormNotificationAdmin(admin.ModelAdmin):
-	list_display = ('subject', 'from_mail', 'to_mail')
+	list_display = ('subject', 'from_name', 'from_mail', 'to_mail')
 	save_on_top = True
 	search_fields = ['user']
 

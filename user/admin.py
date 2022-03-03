@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Profile, NewUserEmailSettings
+from .models import Profile, NewUserEmailSetting
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
 # Register your models here.
 
@@ -9,9 +11,16 @@ class ProfileAdmin(admin.ModelAdmin):
 	search_fields = ['user']
 
 class NewUserEmailSettingsAdmin(admin.ModelAdmin):
-	list_display = ('subject', 'from_mail', 'to_mail')
+	list_display = ('subject', 'from_name', 'from_mail', 'to_mail')
 	save_on_top = True
 	search_fields = ['user']
 
+class MyUserAdmin(UserAdmin):
+	ordering = ('-date_joined', )
+	list_display = ('username', 'email', 'date_joined', 'first_name', 'last_name', 'is_staff')
+
+
+admin.site.unregister(User)
+admin.site.register(User, MyUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(NewUserEmailSettings, NewUserEmailSettingsAdmin)
+admin.site.register(NewUserEmailSetting, NewUserEmailSettingsAdmin)
