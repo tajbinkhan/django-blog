@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Category, Comment, CommentFormNotification
+from .models import Post, Category, Comment
 from django.contrib.auth.models import Permission
 
 # Register your models here.
@@ -22,16 +22,10 @@ class CommentAdmin(admin.ModelAdmin):
 	list_filter = ('created_on',)
 	search_fields = ('user', 'content')
 
-class CommentFormNotificationAdmin(admin.ModelAdmin):
-	list_display = ('subject', 'from_name', 'from_mail', 'to_mail')
-	save_on_top = True
-	search_fields = ['user']
-
 admin.site.site_header = 'Admin Panel'
 admin.site.index_title = 'Blog Site Administration'
 admin.site.site_title = 'Django Blog'
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(CommentFormNotification, CommentFormNotificationAdmin)
 admin.site.register(Permission)

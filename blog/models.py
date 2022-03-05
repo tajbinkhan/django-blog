@@ -80,16 +80,6 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.user.username
 
-class CommentFormNotification(models.Model):
-	subject = models.CharField(max_length=25)
-	message = models.TextField()
-	from_name = models.CharField(max_length=50, verbose_name='From Name')
-	from_mail = models.EmailField(max_length=50, verbose_name='From Mail')
-	to_mail = models.EmailField(max_length=50, verbose_name='To Mail')
-
-	def __str__(self):
-		return self.subject
-
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
 	if not instance.slug:
 		instance.slug = unique_slug_generator(instance)

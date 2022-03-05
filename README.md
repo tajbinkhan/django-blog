@@ -16,6 +16,12 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * Social Authentication
 * User Email Verification
 * Add Multiple Email Account
+* User Account Deletion From Profile
+
+### v4.3
+* Admin Panel Modification
+* User Can Delete Their Own Account From Their Profile
+* Social Account Verification Has Been Removed
 
 ### v4.2
 * New User Registration Email Notification

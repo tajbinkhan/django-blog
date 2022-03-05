@@ -1,28 +1,16 @@
-import os
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .models import Post, Category, CommentFormNotification
+from .models import Post, Category
 from django.utils.decorators import method_decorator
 from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
+from email_settings.views import comment_email_setting
 
 # Create your views here.
-
-def comment_email_setting():
-	mail_obj = CommentFormNotification.objects.latest('id')
-	send_mail(
-		mail_obj.subject,
-		mail_obj.message,
-		f"{mail_obj.from_name} <{mail_obj.from_mail}>",
-		[mail_obj.to_mail],
-		fail_silently=False,
-	)
 
 def error(request, exception):
 	context = {

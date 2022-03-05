@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm, UserDeleteForm
 from allauth.account.views import PasswordChangeView, PasswordSetView
 from django.urls import reverse_lazy
 
@@ -23,6 +23,23 @@ def profile(request):
 		'p_form': p_form,
 	}
 	return render(request, 'users/profile.html', context)
+
+@login_required
+def deleteuser(request):
+	if request.method == 'POST':
+		delete_form = UserDeleteForm(request.POST, instance=request.user)
+		user = request.user
+		user.delete()
+		messages.success(request, 'Your account has been deleted successfully.')
+		return redirect('blog-home')
+	else:
+		delete_form = UserDeleteForm(instance=request.user)
+
+	context = {
+		'delete_form': delete_form
+	}
+
+	return render(request, 'users/delete_account.html', context)
 
 class MyPasswordChangeView(PasswordChangeView):
 	success_url = reverse_lazy('profile')

@@ -14,6 +14,11 @@ class ProfileUpdateForm(forms.ModelForm):
 		model = Profile
 		fields = ['image']
 
+class UserDeleteForm(forms.ModelForm):
+	class Meta:
+		model = User
+		fields = []
+
 class CustomSignupForm(SignupForm):
 	first_name = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'placeholder': 'Enter your first name'}))
 	last_name = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'placeholder': 'Enter your last name'}))

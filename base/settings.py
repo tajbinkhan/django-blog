@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
+	'email_settings'
 ]
 
 MIDDLEWARE = [
@@ -175,3 +176,4 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 ACCOUNT_SIGNUP_REDIRECT_URL = "account_login"
+SOCIALACCOUNT_EMAIL_VERIFICATION = False
