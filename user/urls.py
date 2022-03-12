@@ -3,5 +3,5 @@ from .views import profile, deleteuser
 
 urlpatterns = [
 	path('profile/', profile, name='profile'),
-	path('eliminate/', deleteuser, name='delete-user')
+	path('remove/', deleteuser, name='delete-user')
 ]

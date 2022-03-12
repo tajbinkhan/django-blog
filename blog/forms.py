@@ -42,12 +42,7 @@ class PostForm(forms.ModelForm):
 
 	class Meta:
 		model = Post
-		fields = ('title', 'slug', 'overview', 'content', 'img_thumbnail', 'categories', 'previous_post', 'next_post', 'publish')
-
-	def __init__(self, *args, **kwargs):
-		super(PostForm,self).__init__(*args, **kwargs)
-		self.fields['previous_post'].empty_label = "Select Previous Post"
-		self.fields['next_post'].empty_label = "Select Next Post"
+		fields = ('title', 'slug', 'overview', 'content', 'img_thumbnail', 'categories', 'publish')
 
 class CategoryForm(forms.ModelForm):
 	title = forms.CharField(

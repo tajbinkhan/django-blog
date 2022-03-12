@@ -7,7 +7,7 @@
 		<main class="post blog-post col-lg-8">
 			<div class="container">
 				<div class="post-single">
-					<div class="post-thumbnail"><img src="{{ object.img_thumbnail.url }}" alt="..." class="img-fluid"></div>
+					<div class="post-thumbnail"><img src="{{ object.img_thumbnail.url }}" alt="..." class="img-fluid" style="width: auto; height: 485px;"></div>
 					<div class="post-details">
 						<div class="post-meta d-flex justify-content-between">
 							<div class="category">
@@ -38,25 +38,40 @@
 							{{ object.content|safe }}
 						</div>
 						<div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
-							{% if object.previous_post %}
-								<a href="{{ object.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
+							{% if object.get_previous_by_timestamp %}
+								<a href="{% url 'post_detail' object.get_previous_by_timestamp.slug %}" class="prev-post text-left d-flex align-items-center">
 									<div class="icon prev"><i class="fa fa-angle-left"></i></div>
 									<div class="text">
 										<strong class="text-primary">Previous Post </strong>
-										<h6>{{ object.previous_post.title }}</h6>
+										<h6>{{ object.get_previous_by_timestamp.title }}</h6>
 									</div>
 								</a>
 							{% endif %}
-							{% if object.next_post %}
-								<a href="{{ object.next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
+							{% if object.get_next_by_timestamp %}
+								<a href="{% url 'post_detail' object.get_next_by_timestamp.slug %}" class="next-post text-right d-flex align-items-center justify-content-end">
 									<div class="text">
 										<strong class="text-primary">Next Post </strong>
-										<h6>{{ object.next_post.title }}</h6>
+										<h6>{{ object.get_next_by_timestamp.title }}</h6>
 									</div>
-									<div class="icon next"><i class="fa fa-angle-right">   </i></div>
+									<div class="icon next"><i class="fa fa-angle-right"></i></div>
 								</a>
 							{% endif %}
 						</div>
+						<h3 class="h4-custom mb-4">Share this post</h3>
+						<ul class="list-inline mb-5">
+							<li class="list-inline-item me-1 mb-3">
+								<a class="social-link-share facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">
+									<i class="me-2 fab fa-facebook-f mr-2"></i>
+									Share
+								</a>
+							</li>
+							<li class="list-inline-item me-1 mb-3">
+								<a class="social-link-share twitter" href="https://twitter.com/intent/tweet?text=Hi%20friends%21%20I%20have%20written%20this%20blog%20post%20named%20%22{{ object.title|urlencode }}%22.%20If%20you%20like%20this%20one%20then%20you%20can%20browse%20other%20if%20you%20want.%20Here%20is%20the%20link...%0A%0A{{ request.build_absolute_uri }}" target="_blank">
+									<i class="me-2 fab fa-twitter mr-2"></i>
+									Tweet
+								</a>
+							</li>
+            </ul>
 						<div class="post-comments" id="post-comments">
 							<header>
 								<h3 class="h6">Post Comments<span class="no-of-comments">({{ object.comments.count }})</span></h3>
@@ -68,11 +83,19 @@
 											<div class="image">
 												<img src="{{ comment.user.profile.image.url }}" alt="..." class="img-fluid rounded-circle">
 											</div>
-											<div class="title"><strong>{{ comment.user.username }}</strong><span class="date">{{ comment.created_on|timesince }} ago</span></div>
+											<div class="title">
+												<strong>{{ comment.user.username }}</strong>
+												<span class="date">{{ comment.created_on|timesince }} ago</span>
+											</div>
 										</div>
 									</div>
 									<div class="comment-body">
 										{{ comment.content }}
+										<br>
+										{% if request.user.is_superuser %}
+											<a href="{% url 'comment_update' comment.pk %}" type="submit" class="btn btn-secondary mt-3">Update Comment</a>
+											<a href="{% url 'comment_delete' comment.pk %}" type="submit" class="btn btn-danger mt-3">Delete Comment</a>
+										{% endif %}
 									</div>
 								</div>
 							{% endfor %}
@@ -96,7 +119,7 @@
 							</div>
 						{% else %}
 							<div class="add-comment" id="leave-a-reply">
-								<div class="form-group col-md-12">
+								<div class="form-group col-md-12" style="padding-left: 0px;">
 									<a href="{% url 'account_login' %}?next={{request.path}}#leave-a-reply" class="btn btn-secondary">Log into comment</a>
 								</div>
 							</div>

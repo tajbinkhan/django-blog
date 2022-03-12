@@ -11,7 +11,9 @@ from .views import (
 	CategoryListView,
 	CategoryCreateView,
 	CategoryUpdateView,
-	CategoryDeleteView)
+	CategoryDeleteView,
+	CommentDeleteView,
+	CommentUpdateView)
 
 urlpatterns = [
 	path('post/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
@@ -25,4 +27,6 @@ urlpatterns = [
 	path('<slug:slug>/update/', PostUpdateView.as_view(), name='post_update'),
 	path('<slug:slug>/delete/', PostDeleteView.as_view(), name='post_delete'),
 	path('category/<slug:slug>/', PostCategoryView.as_view(), name='post_by_category'),
+	path('update/<int:pk>/', CommentUpdateView.as_view(), name='comment_update'),
+	path('delete/<int:pk>/', CommentDeleteView.as_view(), name='comment_delete'),
 ]

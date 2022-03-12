@@ -5,7 +5,7 @@ from django.contrib.auth.models import Permission
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-	list_display = ('title', 'timestamp', 'last_modified', 'previous_post', 'next_post')
+	list_display = ('title', 'timestamp', 'last_modified')
 	save_on_top = True
 	search_fields = ['title', 'content']
 	prepopulated_fields = {'slug': ('title',)}
@@ -15,6 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 	save_on_top = True
 	list_filter = ['date_created']
 	search_fields = ['title']
+	prepopulated_fields = {'slug': ('title',)}
 
 class CommentAdmin(admin.ModelAdmin):
 	list_display = ('user', 'content', 'post', 'created_on')

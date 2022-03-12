@@ -1,9 +1,7 @@
 import os
 import datetime
 from PIL import Image
-from .utils import unique_slug_generator
 from django.urls import reverse
-from django.db.models.signals import pre_save
 from django.db import models
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
@@ -47,8 +45,6 @@ class Post(models.Model):
 	categories = models.ManyToManyField(Category)
 	img_thumbnail = models.ImageField(upload_to=upload_image_path)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank=True, null=True)
-	next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank=True, null=True)
 	publish = models.BooleanField(default=True)
 
 	def __str__(self):
@@ -79,15 +75,3 @@ class Comment(models.Model):
 
 	def __str__(self):
 		return self.user.username
-
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
-	if not instance.slug:
-		instance.slug = unique_slug_generator(instance)
-
-pre_save.connect(pre_save_post_receiver, sender=Post)
-
-def pre_save_category_receiver(sender, instance, *args, **kwargs):
-	if not instance.slug:
-		instance.slug = unique_slug_generator(instance)
-
-pre_save.connect(pre_save_category_receiver, sender=Category)

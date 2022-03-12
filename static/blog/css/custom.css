@@ -141,3 +141,52 @@ ul.errorlist.nonfield {
 	color: #fff;
 	background: #1c64c1;
 }
+
+.h4-custom {
+	margin-top: 20px;
+}
+
+.post h3:hover{
+	color: #000;
+}
+
+.list-inline {
+	padding-left: 0;
+	list-style: none;
+}
+
+.me-1 {
+	margin-bottom: .25rem !important;
+}
+
+.me-2 {
+	margin-bottom: .5rem !important;
+}
+
+.social-link-share {
+	padding: 0.45rem 1.2rem;
+	color: #fff;
+	background: #343a40;
+	transition: all 0.3s;
+	font-size: 0.8rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding-bottom: 4px;
+}
+
+.social-link-share:hover, .social-link-share:focus {
+	text-decoration: none;
+	color: #fff;
+}
+
+.facebook:hover, .facebook:focus {
+	background: #3b5999;
+}
+
+.twitter:hover, .twitter:focus {
+	background: #55acee;
+}
+
+.instagram:hover, .instagram:focus {
+	background: #e4405f;
+}

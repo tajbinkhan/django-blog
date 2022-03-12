@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', 'evankhan.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'evankhan.pythonanywhere.com']
 
 
 # Application definition
@@ -51,7 +51,8 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
-	'email_settings'
+	'email_settings',
+	'site_setting',
 ]
 
 MIDDLEWARE = [
@@ -164,6 +165,9 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# Shortcodes
+ADMIN_PANEL = 'admin'
 
 # Django All Auth Settings
 SITE_ID = 1

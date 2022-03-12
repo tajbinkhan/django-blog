@@ -1,0 +1,12 @@
+Hello,
+
+"""{{ username }}""" has registered to your website {{ site_name }}. Please check on {{ protocol }}://{{ domain }}/{{ admin_panel }}.
+
+-------- User Details --------
+First Name: {{ first_name }}
+Last Name: {{ last_name }}
+Email Address: {{ email_address }}
+User Creation Date: {{ timestamp }}
+
+Sincerely,
+The Website Team

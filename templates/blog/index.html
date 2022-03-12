@@ -13,7 +13,7 @@
 							<div class="post col-xl-6">
 								<div class="post-thumbnail">
 									<a href="{% url 'post_detail' post.slug %}">
-									<img src="{{ post.img_thumbnail.url }}" alt="..." class="img-fluid" style="max-width: 640; max-height: 426;"></a>
+									<img src="{{ post.img_thumbnail.url }}" alt="..." class="img-fluid" style="height: 233px;"></a>
 								</div>
 								<div class="post-details">
 									<div class="post-meta d-flex justify-content-between">
@@ -27,7 +27,7 @@
 									<a href="{% url 'post_detail' post.slug %}">
 										<h3 class="h4 text-capitalize">{{ post.title }}</h3>
 									</a>
-									<p class="text-muted">{{ post.overview|truncatewords:27 }}<a href="{% url 'post_detail' post.slug %}"><u>continue reading &rarr;</u></a></p>
+									<p class="text-muted">{{ post.overview|truncatewords:27 }} <a href="{% url 'post_detail' post.slug %}"><u>continue reading &rarr;</u></a></p>
 									<footer class="post-footer d-flex align-items-center">
 										<div class="author d-flex align-items-center flex-wrap">
 											<div class="avatar">

@@ -3,12 +3,11 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .models import Post, Category
+from .models import Post, Category, Comment
 from django.utils.decorators import method_decorator
 from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
-from email_settings.views import comment_email_setting
 
 # Create your views here.
 
@@ -69,7 +68,6 @@ class PostDetailView(DetailView):
 			post = self.get_object()
 			form.instance.user = request.user
 			form.instance.post = post
-			comment_email_setting()
 			form.save()
 			return redirect(reverse('post_detail', kwargs={'slug': post.slug}))
 
@@ -96,7 +94,7 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, PermissionRequired
 class PostDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView):
 	model = Post
 	success_url = reverse_lazy('blog-home')
-	success_message = "%(title)s was deleted successfully"
+	success_message = "Post was deleted successfully"
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -208,5 +206,53 @@ class CategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 	def test_func(self):
 		category = self.get_object()
 		if self.request.user == category.author:
+			return True
+		return False
+
+@method_decorator(superuser_required, name='dispatch')
+class CommentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, UpdateView):
+	model = Comment
+	form_class = CommentForm
+	success_message = "Comment was updated successfully"
+	template_name = 'blog/comment_edit.html'
+
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)
+
+	def get_success_url(self):
+		post = self.object.post 
+		return reverse_lazy('post_detail', kwargs={'slug': post.slug})
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['title'] = 'Update Comment'
+		context['submit'] = 'Update Comment'
+		context['head_title'] = 'Update Comment'
+		return context
+
+	def test_func(self):
+		if self.request.user.is_superuser:
+			return True
+		return False
+
+@method_decorator(superuser_required, name='dispatch')
+class CommentDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestMixin, DeleteView):
+	model = Comment
+	success_message = "Comment was deleted successfully"
+	template_name = 'blog/comment_delete.html'
+
+	def get_success_url(self):
+		post = self.object.post 
+		return reverse_lazy('post_detail', kwargs={'slug': post.slug})
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['title'] = 'Delete'
+		context['head_title'] = 'Delete Comment'
+		return context
+
+	def test_func(self):
+		if self.request.user.is_superuser:
 			return True
 		return False

@@ -11,7 +11,7 @@
 					{% csrf_token %}
 					<fieldset class="form-group">
 						<legend class="border-bottom mb-4">Log Out</legend>
-						<p>Are you sure you want to log out?</p>
+						<p>Are you sure, you want to log out?</p>
 						</fieldset>
 						{% if redirect_field_value %}
 						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>

@@ -18,14 +18,20 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * Add Multiple Email Account
 * User Account Deletion From Profile
 
+### v4.4
+* Some CSS Issue Fixed.
+* Security Level Upgraded.
+* Email Notification Has Advanced Features.
+* User Will Be Notified If He/She Change Password of Their Account.
+
 ### v4.3
-* Admin Panel Modification
-* User Can Delete Their Own Account From Their Profile
-* Social Account Verification Has Been Removed
+* Admin Panel Modification.
+* User Can Delete Their Own Account From Their Profile.
+* Social Account Verification Has Been Removed.
 
 ### v4.2
-* New User Registration Email Notification
-* New Comment on Blog Post Notification
+* New User Registration Email Notification.
+* New Comment on Blog Post Notification.
 
 ### v4.1
 * Messages are shown when post update, delete or created.

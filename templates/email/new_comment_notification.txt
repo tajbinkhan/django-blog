@@ -1,0 +1,8 @@
+Hello,
+
+"{{ user }}" posted a comment from website {{ protocol }}://{{ domain }} of blog post "{{ post }}" at {{ timestamp }}.
+
+Blog Post URL: {{ protocol }}://{{ domain }}/{{ post_slug }}
+
+Sincerely,
+The Website Team
