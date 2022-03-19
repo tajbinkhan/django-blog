@@ -20,7 +20,6 @@ urlpatterns = [
 	path('accounts/password/change/', login_required(MyPasswordChangeView.as_view()), name="account_change_password"),
 	path('accounts/password/set/', login_required(MyPasswordSetView.as_view()), name="account_set_password"),
 	path('accounts/', include('allauth.urls')),
-	path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:

@@ -34,7 +34,8 @@ class PostCategoryView(ListView):
 	template_name = 'blog/category.html'
 	context_object_name = 'categories'
 	ordering = ['-timestamp']
-	paginate_by = 6
+	paginate_by = 2
+	paginate_orphans = 2
 
 	def get_queryset(self):
 		self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
@@ -50,7 +51,8 @@ class PostListView(ListView):
 	template_name = 'blog/index.html'
 	context_object_name = 'posts'
 	ordering = ['-timestamp']
-	paginate_by = 6
+	paginate_by = 4
+	paginate_orphans = 2
 
 class PostDetailView(DetailView):
 	model = Post

@@ -3,10 +3,9 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
 from django.conf import settings
-from django.template.loader import render_to_string
-from email_settings.models import NewUserEmailSetting
-from django.core.mail import send_mail
-from site_setting.models import AllSetting
+from django.core.mail import EmailMessage
+from site_setting.models import AllSetting, EmailContent
+from site_setting import utils
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
@@ -20,6 +19,7 @@ def save_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=User)
 def send_message(sender, instance, created, **kwargs):
 	site_obj = AllSetting.objects.latest('id')
+	email_obj = EmailContent.objects.filter(notification_name='New User Registration Notification').latest('id')
 	context = {
 		'domain': site_obj.domain_name,
 		'site_name': site_obj.site_name,
@@ -31,21 +31,19 @@ def send_message(sender, instance, created, **kwargs):
 		'protocol': site_obj.protocol,
 		'admin_panel': settings.ADMIN_PANEL
 	}
-	email_template_name = "email/new_user_notification.txt"
-	email = render_to_string(email_template_name, context)
 	if created:
-		mail_obj = NewUserEmailSetting.objects.latest('id')
-		send_mail(
-			mail_obj.subject,
-			email,
-			f"{mail_obj.from_name} <{mail_obj.from_mail}>",
-			[mail_obj.to_mail],
-			fail_silently=False,
-		)
+		subject = email_obj.subject
+		from_ = f"{site_obj.site_name} <{site_obj.email_address}>"
+		html_content = utils.add_context_to_string(email_obj.message, context)
+		to = [site_obj.admin_email]
+		msg = EmailMessage(subject, html_content, from_, to)
+		msg.content_subtype = "html"
+		msg.send()
 
 @receiver(pre_save, sender=User)
 def comment_update(sender, instance, *args, **kwargs):
 	site_obj = AllSetting.objects.latest('id')
+	email_obj = EmailContent.objects.filter(notification_name='Password Change Notification').latest('id')
 	context = {
 		'domain': site_obj.domain_name,
 		'site_name': site_obj.site_name,
@@ -53,15 +51,13 @@ def comment_update(sender, instance, *args, **kwargs):
 		'email_address': instance.email,
 		'protocol': site_obj.protocol,
 	}
-	email_template_name = "email/password_change_notification.txt"
-	email = render_to_string(email_template_name, context)
 	if instance.pk:
 		old_content = User.objects.get(pk=instance.pk)
 		if not old_content.password == instance.password:
-			send_mail(
-				'Password Change Notification',
-				email,
-				f"Django Blog <info@webphics.com>",
-				[instance.email],
-				fail_silently=False,
-			)
+			subject = email_obj.subject
+			from_ = f"{site_obj.site_name} <{site_obj.email_address}>"
+			html_content = utils.add_context_to_string(email_obj.message, context)
+			to = [site_obj.admin_email]
+			msg = EmailMessage(subject, html_content, from_, to)
+			msg.content_subtype = "html"
+			msg.send()

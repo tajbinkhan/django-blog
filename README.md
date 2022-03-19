@@ -17,6 +17,19 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * User Email Verification
 * Add Multiple Email Account
 * User Account Deletion From Profile
+* HTML Email Template
+* Advanced CKEditor
+
+### v4.5 (Big Update)
+* Email Messages Can Be Customized From Admin Panel.
+* Shortcodes Are Being Used In The Message.
+* HTML Email Template Integration From Admin Panel.
+* Website CSS File Optimized.
+* New Editor Installed (ckeditor).
+* More Option Is Available In The Editor.
+* Code Optimized.
+* Comment Can Be Updated From Front-end (Admin only).
+* Comment Can Be Deleted From Front-end (Admin only).
 
 ### v4.4
 * Some CSS Issue Fixed.

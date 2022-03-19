@@ -7,7 +7,7 @@
 		<main class="post blog-post col-lg-8">
 			<div class="container">
 				<div class="post-single">
-					<div class="post-thumbnail"><img src="{{ object.img_thumbnail.url }}" alt="..." class="img-fluid" style="width: auto; height: 485px;"></div>
+					<div class="post-thumbnail"><img src="{{ object.img_thumbnail.url }}" alt="..." class="img-fluid"></div>
 					<div class="post-details">
 						<div class="post-meta d-flex justify-content-between">
 							<div class="category">
@@ -21,7 +21,7 @@
 								<a href="{% url 'post_delete' object.slug %}" class="btn btn-danger" role="button">Delete</a>
 							{% endif %}
 						</div>
-						<h1 class="text-capitalize">{{ object.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+						<h1 class="text-capitalize">{{ object.title }}</h1>
 						<div class="post-footer d-flex align-items-center flex-column flex-sm-row">
 							<div class="author d-flex align-items-center flex-wrap">
 								<div class="avatar"><img src="{{ object.author.profile.image.url }}" alt="..." class="img-fluid"></div>

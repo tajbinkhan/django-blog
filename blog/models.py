@@ -3,7 +3,7 @@ import datetime
 from PIL import Image
 from django.urls import reverse
 from django.db import models
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -39,7 +39,7 @@ class Post(models.Model):
 	title = models.CharField(max_length=120)
 	slug = models.SlugField(max_length=120, unique=True, null=True, blank=True)
 	overview = models.TextField()
-	content = HTMLField()
+	content = RichTextField()
 	timestamp = models.DateTimeField(auto_now_add=True)
 	last_modified = models.DateTimeField(auto_now=True)
 	categories = models.ManyToManyField(Category)

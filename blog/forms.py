@@ -1,11 +1,7 @@
 from django import forms
-from tinymce.widgets import TinyMCE
+from ckeditor.widgets import CKEditorWidget
 from .models import Post, Comment, Category
 
-
-class TinyMCEWidget(TinyMCE):
-	def use_required_attribute(self, *args):
-		return False
 
 class PostForm(forms.ModelForm):
 	title = forms.CharField(
@@ -31,11 +27,9 @@ class PostForm(forms.ModelForm):
 		)
 	)
 	content = forms.CharField(
-		widget=TinyMCEWidget(
+		widget=CKEditorWidget(
 			attrs={
 				'placeholder': 'Here goes post content in it',
-				'cols': 20,
-				'rows': 10
 			}
 		)
 	)
