@@ -19,8 +19,10 @@ class EmailContent(models.Model):
 		('Password Change Notification', 'Password Change Notification'),
 	]
 	subject = models.CharField(max_length=50)
+	plain_text_html = models.TextField(verbose_name='Plain Text HTML')
 	message = RichTextField()
 	notification_name = models.CharField(max_length=256, choices=NOTIFICAITON_STATUS)
+	plain_text_html_enable = models.BooleanField(verbose_name='Plain Text HTML Enable', help_text='This will ignore the message field content.')
 
 	def __str__(self):
 		return self.notification_name

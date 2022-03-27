@@ -188,8 +188,9 @@ CKEDITOR_CONFIGS = {
 	'default': {
 			# 'skin': 'Kama',
 			# 'skin': 'office2013',
+			'sourceTextColor': '#000',
 			'toolbar_Basic': [
-					['Source', '-', 'Bold', 'Italic']
+				['Source', '-', 'Bold', 'Italic']
 			],
 			'toolbar_YourCustomToolbarConfig': [
 					{'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
