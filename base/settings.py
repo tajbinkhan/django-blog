@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
-	'import_export',
+	# 'import_export',
 	'ckeditor',
 ]
 
@@ -83,7 +83,7 @@ TEMPLATES = [
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
 				'django.template.context_processors.request',
-				'blog.context_processors.sidebar',
+				'site_setting.context_processors.sidebar',
 			],
 		},
 	},
