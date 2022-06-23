@@ -1,7 +1,7 @@
 Getting Started With Djagno Blog With Django Framework
 ===================================
 
-This blog is made with django framework and the django version is 4.0.1. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more. 
+This blog is made with django framework and the django version is 4.0.1. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more.
 
 # Features on this blog
 * User Registration
@@ -19,6 +19,11 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * User Account Deletion From Profile
 * HTML Email Template
 * Advanced CKEditor
+
+### v4.6 (Admin Panel New Design)
+* New Highly New Customization Design.
+* New Icon to Understand Better and Look More Professional.
+* New Plugin Called Jazz Admin Is Installed to Give This Professional Look.
 
 ### v4.5 (Big Update)
 * Email Messages Can Be Customized From Admin Panel.

@@ -1,24 +1,23 @@
 from django.contrib import admin
 from .models import Post, Category, Comment
 from django.contrib.auth.models import Permission
-from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
-class PostAdmin(ImportExportModelAdmin):
+class PostAdmin(admin.ModelAdmin):
 	list_display = ('title', 'timestamp', 'last_modified')
 	save_on_top = True
 	search_fields = ['title', 'content']
 	prepopulated_fields = {'slug': ('title',)}
 
-class CategoryAdmin(ImportExportModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
 	list_display = ('title', 'slug', 'date_created', 'last_modified')
 	save_on_top = True
 	list_filter = ['date_created']
 	search_fields = ['title']
 	prepopulated_fields = {'slug': ('title',)}
 
-class CommentAdmin(ImportExportModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
 	list_display = ('user', 'content', 'post', 'created_on')
 	save_on_top = True
 	list_filter = ('created_on',)

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from .jazz_admin_settings import JAZZMIN_SETTINGS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'evankhan.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
+	'jazzmin',
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -55,7 +57,6 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.google',
-	# 'import_export',
 	'ckeditor',
 ]
 
@@ -248,3 +249,5 @@ CKEDITOR_CONFIGS = {
 			]),
 	}
 }
+
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
