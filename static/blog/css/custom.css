@@ -2,11 +2,21 @@
 body {
   background: #fafafa;
   color: #333333;
+	font-family: 'Poppins', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
+
+strong {
+	font-weight: 500;
+}
+
+a {
+	font-weight: 500;
+}
+
 
 ul {
   margin: 0;
@@ -189,4 +199,21 @@ ul.errorlist.nonfield {
 
 .instagram:hover, .instagram:focus {
 	background: #e4405f;
+}
+
+.not-found {
+	border: 1px solid #e3e3e3;
+	border-radius: 5px;
+	padding: 15px;
+	background: #fff;
+	font-size: 18px;
+	font-style: italic;
+}
+
+.widget.search input {
+	font-family: 'Poppins', sans-serif;
+}
+
+.widget.search input::placeholder {
+	font-family: 'Poppins', sans-serif;
 }

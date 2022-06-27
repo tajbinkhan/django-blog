@@ -14,15 +14,14 @@ class SearchListView(ListView):
 		context = super(SearchListView, self).get_context_data(*args, **kwargs)
 		query = self.request.GET.get('q')
 		context['head_title'] = 'Search'
-		context['query'] = self.request.GET.get('q')
+		context['query'] = query
 		return context
 
 	def get_queryset(self, *args, **kwargs):
-		request = self.request
-		query = request.GET.get('q')
+		query = self.request.GET.get('q')
 		if query is not None:
-			lookups = (Q(title__icontains=query) | 
-				Q(content__icontains=query) | 
+			lookups = (Q(title__icontains=query) |
+				Q(content__icontains=query) |
 				Q(categories__title__icontains=query))
 		else:
 			return Post.objects.all()
