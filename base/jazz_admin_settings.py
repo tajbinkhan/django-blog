@@ -11,6 +11,10 @@ JAZZMIN_SETTINGS = {
 	# "user_avatar": "blog/img/favicon.ico",
 	#############
 	# Side Menu #
+	"topmenu_links": [
+		# Url that gets reversed (Permissions can be added)
+		{"name": "Visit Website",  "url": "/", "new_window": True, "permissions": ["auth.view_user"]},
+	],
 	#############
 	# Whether to display the side menu
 	"show_sidebar": True,

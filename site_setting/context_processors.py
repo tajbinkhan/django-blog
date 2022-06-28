@@ -9,7 +9,7 @@ def get_category_count():
 def sidebar(request):
 	category_count = get_category_count()
 	most_recent = Post.objects.order_by('-timestamp')[:3]
-	settings = AllSetting.objects.latest('id')
+	settings = AllSetting.objects.last()
 	context = {
 		'most_recent': most_recent,
 		'category_count': category_count,
