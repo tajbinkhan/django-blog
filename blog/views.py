@@ -33,8 +33,7 @@ class PostCategoryView(ListView):
 	model = Post
 	template_name = 'blog/category.html'
 	context_object_name = 'categories'
-	ordering = ['-timestamp']
-	paginate_by = 2
+	paginate_by = 4
 	paginate_orphans = 2
 
 	def get_queryset(self):
@@ -50,7 +49,6 @@ class PostListView(ListView):
 	model = Post
 	template_name = 'blog/index.html'
 	context_object_name = 'posts'
-	ordering = ['-timestamp']
 	paginate_by = 4
 	paginate_orphans = 2
 
@@ -223,7 +221,7 @@ class CommentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestM
 		return super().form_valid(form)
 
 	def get_success_url(self):
-		post = self.object.post 
+		post = self.object.post
 		return reverse_lazy('post_detail', kwargs={'slug': post.slug})
 
 	def get_context_data(self, **kwargs):
@@ -245,7 +243,7 @@ class CommentDeleteView(LoginRequiredMixin, SuccessMessageMixin, UserPassesTestM
 	template_name = 'blog/comment_delete.html'
 
 	def get_success_url(self):
-		post = self.object.post 
+		post = self.object.post
 		return reverse_lazy('post_detail', kwargs={'slug': post.slug})
 
 	def get_context_data(self, **kwargs):

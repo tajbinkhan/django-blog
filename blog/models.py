@@ -27,6 +27,7 @@ class Category(models.Model):
 
 	class Meta:
 		verbose_name_plural = "categories"
+		ordering = ['-date_created']
 
 	def __str__(self):
 		return self.title
@@ -46,6 +47,9 @@ class Post(models.Model):
 	img_thumbnail = models.ImageField(upload_to=upload_image_path)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	publish = models.BooleanField(default=True)
+
+	class Meta:
+		ordering = ['-timestamp']
 
 	def __str__(self):
 		return self.title
