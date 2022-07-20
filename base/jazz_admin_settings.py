@@ -38,7 +38,7 @@ JAZZMIN_SETTINGS = {
 		'account.EmailAddress': "fas fa-at",
 		'socialaccount.SocialAccount': "fas fa-share-alt",
 		'socialaccount.SocialToken': "fas fa-coins",
-		'socialaccount.SocialApp': "fab fa-app-store-ios",
+		'socialaccount.SocialApp': "fas fa-people-arrows",
 	},
 	# # Icons that are used when one is not manually specified
 	"default_icon_parents": "fas fa-chevron-circle-right",

@@ -2,9 +2,14 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from allauth.account.forms import SignupForm, LoginForm
+from django.contrib.auth.forms import UserCreationForm
+
+class UserModelForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = '__all__'
 
 class UserUpdateForm(forms.ModelForm):
-
 	class Meta:
 		model = User
 		fields = ['first_name', 'last_name']

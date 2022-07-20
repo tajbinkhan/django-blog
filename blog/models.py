@@ -14,7 +14,7 @@ def get_filename_ext(filepath):
 	return name, ext
 
 def upload_image_path(instance, filename):
-	new_filename = datetime.datetime.now()
+	new_filename = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 	name, ext = get_filename_ext(filename)
 	final_filename = f'{new_filename}{ext}'
 	return f'blog-thumbnail/{final_filename}'
