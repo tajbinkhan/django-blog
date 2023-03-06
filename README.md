@@ -15,6 +15,8 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 
 ![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/5.png)
 
+**After Admin Login**
+
 ![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/6.png)
 
 ![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/7.png)
