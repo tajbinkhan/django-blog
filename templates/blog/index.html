@@ -38,6 +38,13 @@
 										<div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }} </div>
 										<div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments.count }}</div>
 									</footer>
+									<div class="mt-4">
+										{% if user.is_superuser %}
+											<a href="{% url 'duplicate_post' post_id=post.id %}" class="btn btn-danger mr-2 mb-2">Duplicate Post</a>
+											<a href="{% url 'post_update' post.slug %}" class="btn btn-dark mr-2 mb-2" role="button">Update</a>
+											<a href="{% url 'post_delete' post.slug %}" class="btn btn-danger" role="button">Delete</a>
+										{% endif %}
+									</div>
 								</div>
 							</div>
 						{% endfor %}

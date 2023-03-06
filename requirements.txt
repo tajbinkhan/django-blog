@@ -13,7 +13,6 @@ Django==4.0.1
 django-allauth==0.49.0
 django-ckeditor==6.2.0
 django-crispy-forms==1.14.0
-django-import-export==2.7.1
 django-jazzmin==2.5.0
 django-js-asset==2.0.0
 et-xmlfile==1.1.0

@@ -17,7 +17,8 @@
 							</div>
 							<div class="mr-auto"></div>
 							{% if user.is_superuser %}
-								<a href="{% url 'post_update' object.slug %}" class="btn btn-primary mr-2" role="button">Update</a>
+								<a href="{% url 'duplicate_post' object.id %}" class="btn btn-danger mr-2">Duplicate Post</a>
+								<a href="{% url 'post_update' object.slug %}" class="btn btn-dark mr-2" role="button">Update</a>
 								<a href="{% url 'post_delete' object.slug %}" class="btn btn-danger" role="button">Delete</a>
 							{% endif %}
 						</div>

@@ -3,6 +3,31 @@ Getting Started With Djagno Blog With Django Framework
 
 This blog is made with django framework and the django version is 4.0.1. It's a intermediate level of blogging. For now I have included this features only. In future I will develop more.
 
+## Screenshots
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/1.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/2.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/3.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/4.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/5.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/6.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/7.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/8.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/9.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/10.png)
+
+# New Update
+* Post Duplication
+
 # Features on this blog
 * User Registration
 * User Login & Logout
@@ -19,6 +44,39 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * User Account Deletion From Profile
 * HTML Email Template
 * Advanced CKEditor
+
+## Installation
+
+Install Django Blog with pip
+
+Clone the project.
+```bash
+  git clone https://github.com/tajbinkhan/django-blog.git
+```
+Go to the project directory (if you are a windows user).
+```bash
+  cd django-blog
+```
+In command panel, run this command.
+```bash
+  pip install -r requirements.txt
+```
+After successfull installation, you need to start the migration to create table in the database.
+```bash
+  python manage.py makemigrations
+  python manage.py migrate
+```
+After migration, start the server by running this command.
+```bash
+  python manage.py runserver
+```
+
+## Versions
+Added new features to **Django Blog**
+
+### v4.7
+* Post Can Be Duplicated.
+* Minor Bug Fixed.
 
 ### v4.6 (Admin Panel New Design)
 * New Highly New Customization Design.
@@ -88,3 +146,17 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * Create post, create category, can comment now in available in the front-end(Only for superuser)
 * Category can be created in create post form.
 * Category can be manage in the front-end.
+
+## Tech Stack
+
+**Language**: HTML5, CSS3, JavaScript, Python
+
+**Framework**: Django Web Framework, BootStrap 4
+
+## Authors
+
+- [Webphics](https://www.webphics.com)
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+

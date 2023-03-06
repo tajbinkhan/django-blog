@@ -8,6 +8,9 @@ from django.utils.decorators import method_decorator
 from .decorators import superuser_required
 from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.utils.text import slugify
+import os
 
 # Create your views here.
 
@@ -28,6 +31,26 @@ def terms_of_service(request):
 		'head_title': 'Terms of Service',
 	}
 	return render(request, 'blog/terms_of_service.html', context)
+
+def duplicate_post(request, post_id):
+	post = get_object_or_404(Post, id=post_id)
+	post_img = post.img_thumbnail.path
+	if os.path.exists(post_img):
+		new_post = Post.objects.create(
+			title=post.title + ' (Copy)',
+			slug=slugify(post.title) + '-copy',
+			img_thumbnail=post.img_thumbnail,
+			overview=post.overview,
+			content=post.content,
+			author=post.author,
+		)
+		for category in post.categories.all():
+			new_post.categories.add(category)
+	else:
+		print('e')
+		messages.error(request, 'Can not duplicate. Post image was not found.')
+	return redirect('blog-home')
+
 
 class PostCategoryView(ListView):
 	model = Post

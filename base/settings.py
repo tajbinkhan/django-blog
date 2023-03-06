@@ -85,7 +85,6 @@ TEMPLATES = [
 				'django.template.context_processors.request',
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
-				'django.template.context_processors.request',
 				'site_setting.context_processors.sidebar',
 			],
 		},
@@ -185,7 +184,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 ACCOUNT_SIGNUP_REDIRECT_URL = "account_login"
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
-
 
 CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
 

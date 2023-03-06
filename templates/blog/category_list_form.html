@@ -7,6 +7,7 @@
 				<div class="content-section">
 					<a href="{% url 'category_create' %}" class="btn btn-outline-dark mb-4 mt-3" type="submit">Add New Category</a>
 					<a href="{% url 'post_create' %}" class="btn btn-outline-dark mb-4 mt-3 ml-2" type="submit">Back to Create Post</a>
+					{% if category %}
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -25,6 +26,9 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					{% else %}
+					<h3 class="h6">Category will be displayed here after adding.</h3>
+					{% endif %}
 				</div>
 			</div>
 			{% include 'blog/sidebar.html' %}

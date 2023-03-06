@@ -35,18 +35,17 @@ class Category(models.Model):
 	def get_absolute_url(self):
 		return reverse('post_by_category', kwargs={'slug': self.slug})
 
-
 class Post(models.Model):
 	title = models.CharField(max_length=120)
 	slug = models.SlugField(max_length=120, unique=True, null=True, blank=True)
 	overview = models.TextField()
 	content = RichTextField()
-	timestamp = models.DateTimeField(auto_now_add=True)
-	last_modified = models.DateTimeField(auto_now=True)
 	categories = models.ManyToManyField(Category)
-	img_thumbnail = models.ImageField(upload_to=upload_image_path)
+	img_thumbnail = models.ImageField(upload_to=upload_image_path, verbose_name='Image thumbnail')
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	publish = models.BooleanField(default=True)
+	last_modified = models.DateTimeField(auto_now=True)
+	timestamp = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
 		ordering = ['-timestamp']
@@ -60,8 +59,8 @@ class Post(models.Model):
 	def get_comments(self):
 		return self.comments.all().order_by('-created_on')
 
-	def save(self):
-		super().save()
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		img = Image.open(self.img_thumbnail.path)
 		if img.height > 426 or img.width > 640:
 			output_size = (426, 640)

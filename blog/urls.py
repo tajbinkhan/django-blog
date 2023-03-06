@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
 from .views import (
+	duplicate_post,
 	PostListView,
 	PostDetailView,
 	PostCreateView,
@@ -19,6 +20,7 @@ urlpatterns = [
 	path('post/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
 	path('', PostListView.as_view(), name='blog-home'),
 	path('post/create/', PostCreateView.as_view(), name='post_create'),
+	path('post/duplicate/<int:post_id>/', duplicate_post, name='duplicate_post'),
 	path('category/create/', CategoryCreateView.as_view(), name='category_create'),
 	path('category/list/', CategoryListView.as_view(), name='category_list'),
 	path('category/<slug:slug>/update/', CategoryUpdateView.as_view(), name='category_update'),
