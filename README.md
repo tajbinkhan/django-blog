@@ -27,8 +27,18 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 
 ![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/10.png)
 
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/11.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/12.png)
+
+![Django Blog](https://raw.githubusercontent.com/tajbinkhan/django-blog/main/screenshots/13.png)
+
 # New Update
-* Post Duplication
+* Display Media Files On Frontend
+* Add Media Files From Frontend
+* Delete Functionality Available On Media Files
+* Pagnitaion Added To Media Files
+* Bug Fixes (Minor)
 
 # Features on this blog
 * User Registration
@@ -46,6 +56,7 @@ This blog is made with django framework and the django version is 4.0.1. It's a 
 * User Account Deletion From Profile
 * HTML Email Template
 * Advanced CKEditor
+* Post Duplication
 
 ## Installation
 
@@ -75,6 +86,13 @@ After migration, start the server by running this command.
 
 ## Versions
 Added new features to **Django Blog**
+
+### v4.8
+* Display Media Files On Frontend
+* Add Media Files From Frontend
+* Delete Functionality Available On Media Files
+* Pagnitaion Added To Media Files
+* Bug Fixes (Minor)
 
 ### v4.7
 * Post Can Be Duplicated.

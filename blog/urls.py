@@ -2,6 +2,9 @@ from django.urls import path
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
 from .views import (
+	photos,
+	media_files,
+	upload_file,
 	duplicate_post,
 	PostListView,
 	PostDetailView,
@@ -17,6 +20,9 @@ from .views import (
 	CommentUpdateView)
 
 urlpatterns = [
+	path('photos/', photos, name="photos"),
+	path('media-files/', media_files, name="media_files"),
+	path('upload-file/', upload_file, name="upload_file"),
 	path('post/', RedirectView.as_view(url=reverse_lazy('blog-home'), permanent=False)),
 	path('', PostListView.as_view(), name='blog-home'),
 	path('post/create/', PostCreateView.as_view(), name='post_create'),

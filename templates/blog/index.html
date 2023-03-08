@@ -42,7 +42,7 @@
 										{% if user.is_superuser %}
 											<a href="{% url 'duplicate_post' post_id=post.id %}" class="btn btn-danger mr-2 mb-2">Duplicate Post</a>
 											<a href="{% url 'post_update' post.slug %}" class="btn btn-dark mr-2 mb-2" role="button">Update</a>
-											<a href="{% url 'post_delete' post.slug %}" class="btn btn-danger" role="button">Delete</a>
+											<a href="{% url 'post_delete' post.slug %}" class="btn btn-danger mb-2" role="button">Delete</a>
 										{% endif %}
 									</div>
 								</div>
@@ -58,27 +58,29 @@
 				<nav aria-label="Page navigation example">
 					<ul class="pagination pagination-template d-flex justify-content-center">
 						{% if is_paginated %}
-							{% if page_obj.has_previous %}
-								<a href="?page=1" class="btn btn-outline-secondary rounded"><i class="fa fa-angle-left mr-2"></i>Go to First Page</a>
-								<li class="page-item text-center">
-									<a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa fa-angle-left"></i>
-									</a>
-								</li>
-							{% endif %}
-							{% for num in page_obj.paginator.page_range %}
-								{% if page_obj.number == num %}
-									<li class="page-item text-center"><a href="?page=1" class="page-link active">{{ num }}</a></li>
-									{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-									<li class="page-item text-center"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+							{% if page_obj.paginator.num_pages > 1 %}
+								{% if page_obj.has_previous %}
+									<a href="?page=1" class="btn btn-outline-secondary rounded"><i class="fa fa-angle-left mr-2"></i>Go to First Page</a>
+									<li class="page-item text-center">
+										<a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa fa-angle-left"></i>
+										</a>
+									</li>
 								{% endif %}
-							{% endfor %}
-							{% if page_obj.has_next %}
-								<li class="page-item text-center">
-									<a href="?page={{ page_obj.next_page_number }}" class="page-link">
-										<i class="fa fa-angle-right"></i>
-									</a>
-								</li>
-								<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary rounded">Go to Last Page<i class="fa fa-angle-right ml-2"></i></a>
+								{% for num in page_obj.paginator.page_range %}
+									{% if page_obj.number == num %}
+										<li class="page-item text-center"><a class="page-link active">{{ num }}</a></li>
+										{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+										<li class="page-item text-center"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+									{% endif %}
+								{% endfor %}
+								{% if page_obj.has_next %}
+									<li class="page-item text-center">
+										<a href="?page={{ page_obj.next_page_number }}" class="page-link">
+											<i class="fa fa-angle-right"></i>
+										</a>
+									</li>
+									<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary rounded">Go to Last Page<i class="fa fa-angle-right ml-2"></i></a>
+								{% endif %}
 							{% endif %}
 						{% endif %}
 					</ul>

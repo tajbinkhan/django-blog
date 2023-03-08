@@ -1,3 +1,6 @@
+import os
+import random
+import string
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
@@ -10,7 +13,8 @@ from .forms import CommentForm, PostForm, CategoryForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.utils.text import slugify
-import os
+from django.conf import settings
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -32,6 +36,7 @@ def terms_of_service(request):
 	}
 	return render(request, 'blog/terms_of_service.html', context)
 
+@superuser_required
 def duplicate_post(request, post_id):
 	post = get_object_or_404(Post, id=post_id)
 	post_img = post.img_thumbnail.path
@@ -47,10 +52,113 @@ def duplicate_post(request, post_id):
 		for category in post.categories.all():
 			new_post.categories.add(category)
 	else:
-		print('e')
 		messages.error(request, 'Can not duplicate. Post image was not found.')
 	return redirect('blog-home')
 
+@superuser_required
+def photos(request):
+	photo_root = settings.MEDIA_ROOT
+	photo_url = settings.MEDIA_URL
+	website_url = request.scheme + '://' + request.get_host()
+	photos = []
+
+	for dirpath, dirnames, filenames in os.walk(photo_root):
+		for filename in filenames:
+			if not filename.startswith('.'):
+				photo_file_path = os.path.join(dirpath, filename)
+				photo_rel_path = os.path.relpath(photo_file_path, photo_root).replace("\\", "/")
+				file_extension = os.path.splitext(filename)[1].lower()
+				if file_extension in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.eps']:
+					photos.append({
+						'url': website_url + photo_url + photo_rel_path,
+						'filename': filename,
+						'path': photo_rel_path,
+						'date': os.path.getmtime(os.path.join(dirpath, filename))
+					})
+
+	photos = sorted(photos, key=lambda k: k['date'], reverse=True)
+	paginator = Paginator(photos, 10)
+
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
+	if request.method == 'POST':
+		file_to_delete = request.POST.get('file_to_delete')
+		if file_to_delete:
+			os.remove(os.path.join(photo_root, file_to_delete.replace("/", "\\")))
+			messages.success(request, f"{file_to_delete} deleted successfully.")
+			return redirect('photos')
+
+	context = {
+		'page_obj': page_obj,
+	}
+
+	return render(request, 'media_content/photos.html', context)
+
+@superuser_required
+def media_files(request):
+	media_root = settings.MEDIA_ROOT
+	media_url = settings.MEDIA_URL
+	website_url = request.scheme + '://' + request.get_host()
+	media_files = []
+
+	for dirpath, dirnames, filenames in os.walk(media_root):
+		for filename in filenames:
+			if not filename.startswith('.'):
+				media_file_path = os.path.join(dirpath, filename)
+				media_rel_path = os.path.relpath(media_file_path, media_root).replace("\\", "/")
+				file_extension = os.path.splitext(filename)[1].lower()
+				if not file_extension in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.eps']:
+					media_files.append({
+						'url': website_url + media_url + media_rel_path,
+						'filename': filename,
+						'path': media_rel_path,
+						'date': os.path.getmtime(os.path.join(dirpath, filename))
+					})
+
+	media_files = sorted(media_files, key=lambda k: k['date'], reverse=True)
+	paginator = Paginator(media_files, 10)
+
+	page_number = request.GET.get('page')
+	page_obj = paginator.get_page(page_number)
+
+	if request.method == 'POST':
+		file_to_delete = request.POST.get('file_to_delete')
+		if file_to_delete:
+			os.remove(os.path.join(media_root, file_to_delete.replace("/", "\\")))
+			messages.success(request, f"{file_to_delete} deleted successfully.")
+			return redirect('media_files')
+
+	context = {
+		'page_obj': page_obj,
+	}
+	return render(request, 'media_content/media_files.html', context)
+
+@superuser_required
+def upload_file(request):
+	if request.method == 'POST':
+		uploaded_files = request.FILES.getlist('files')
+		for uploaded_file in uploaded_files:
+			filename = uploaded_file.name
+			filepath = os.path.join(settings.MEDIA_ROOT, filename)
+
+			# If the file already exists, add a random 6-digit number to the end of the filename
+			if os.path.exists(filepath):
+				random_suffix = ''.join(random.choices(string.digits, k=6))
+				filename = f"{os.path.splitext(filename)[0]}_{random_suffix}{os.path.splitext(filename)[1]}"
+				filepath = os.path.join(settings.MEDIA_ROOT, filename)
+
+			with open(filepath, 'wb+') as destination:
+				for chunk in uploaded_file.chunks():
+					destination.write(chunk)
+		filename, extension = os.path.splitext(uploaded_files[-1].name)
+		messages.success(request, 'File(s) uploaded successfully.')
+		if extension.lower() in ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.eps']:
+			return redirect('photos')
+		else:
+			return redirect('media_files')
+	else:
+		return render(request, 'media_content/upload_file.html')
 
 class PostCategoryView(ListView):
 	model = Post

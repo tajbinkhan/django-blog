@@ -1,0 +1,96 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<main class="posts-listing col-lg-8">
+			<div class="container">
+				<div class="row">
+					<div class="post col-xl-12">
+						<h2>Photos</h2>
+						<a href="{% url 'upload_file' %}" class="btn btn-dark">Upload File</a>
+					</div>
+					<div class="row">
+						<form id="delete-form" method="POST" style="display:none;">
+							{% csrf_token %}
+							<input type="hidden" name="file_to_delete" id="file_to_delete" />
+						</form>
+						{% for media_file in page_obj %}
+						<div class="post col-xl-6">
+							<div class="post-thumbnail">
+								<a href="{{ media_file.url }}" target="_blank">
+									<img src="{{ media_file.url }}" alt="{{ media_file.filename|escape}}" class="img-fluid img-thumbnail" style="height: 233px;">
+								</a>
+							</div>
+							<div class="post-details">
+								<p class="text-muted mt-2"><strong>Filename: </strong>{{ media_file.filename }}</p>
+								<input type="text" id="{{ media_file.filename }}" value="{{ media_file.url }}" class="textinput form-control" readonly>
+								<div class="mt-4">
+									<button class="btn btn-dark" onclick="copyToClipboard(this, '{{ media_file.url }}')">Copy</button>
+									<button onclick="deleteFile('{{ media_file.path }}')" class="btn btn-danger">Delete</button>
+								</div>
+							</div>
+						</div>
+						{% empty %}
+						<p>No media files found.</p>
+						{% endfor %}
+						<!-- Pagination -->
+						<nav aria-label="Page navigation example">
+							<ul class="pagination pagination-template d-flex justify-content-center">
+								{% if page_obj %}
+									{% if page_obj.paginator.num_pages > 1 %}
+										{% if page_obj.has_previous %}
+											<a href="?page=1" class="btn btn-outline-secondary rounded"><i class="fa fa-angle-left mr-2"></i>Go to First Page</a>
+											<li class="page-item text-center">
+												<a href="?page={{ page_obj.previous_page_number }}" class="page-link"><i class="fa fa-angle-left"></i>
+												</a>
+											</li>
+										{% endif %}
+										{% for num in page_obj.paginator.page_range %}
+											{% if page_obj.number == num %}
+												<li class="page-item text-center"><a class="page-link active">{{ num }}</a></li>
+												{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+												<li class="page-item text-center"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+											{% endif %}
+										{% endfor %}
+										{% if page_obj.has_next %}
+											<li class="page-item text-center">
+												<a href="?page={{ page_obj.next_page_number }}" class="page-link">
+													<i class="fa fa-angle-right"></i>
+												</a>
+											</li>
+											<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary rounded">Go to Last Page<i class="fa fa-angle-right ml-2"></i></a>
+										{% endif %}
+									{% endif %}
+								{% endif %}
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</main>
+		{% block script %}
+		<script>
+			function copyToClipboard(button, url) {
+				var input = document.createElement('input');
+				input.setAttribute('value', url);
+				document.body.appendChild(input);
+				input.select();
+				document.execCommand('copy');
+				document.body.removeChild(input);
+				button.innerHTML = 'Link Copied!';
+				function reset() {
+					button.innerHTML = 'Copy';
+				}
+				setTimeout(reset ,3000)
+			}
+
+			function deleteFile(file_to_delete) {
+				if (confirm("Are you sure you want to delete this file?")) {
+					document.getElementById("file_to_delete").value = file_to_delete;
+					document.getElementById("delete-form").submit();
+				}
+			}
+		</script>
+		{% endblock %}
+{% include 'blog/sidebar.html' %}
+{% endblock %}

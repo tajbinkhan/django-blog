@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 	# Installed Apps
 	'crispy_forms',
+	"crispy_bootstrap5",
 	'allauth',
 	'allauth.account',
 	'allauth.socialaccount',
@@ -152,7 +153,9 @@ STATICFILES_DIRS = [STATIC_DIR]
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'account_login'

@@ -7,11 +7,9 @@ class AllSettingAdmin(admin.ModelAdmin):
 	save_on_top = True
 	search_fields = ["domain_name"]
 
-
 class EmailContentAdmin(admin.ModelAdmin):
 	list_display = ("notification_name", "subject")
 	save_on_top = True
-
 
 admin.site.register(AllSetting, AllSettingAdmin)
 admin.site.register(EmailContent, EmailContentAdmin)
