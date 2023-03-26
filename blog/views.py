@@ -183,6 +183,11 @@ class PostListView(ListView):
 	paginate_by = 4
 	paginate_orphans = 2
 
+	def get_queryset(self):
+		queryset = super().get_queryset()
+		queryset = queryset.filter(publish=True)
+		return queryset
+
 class PostDetailView(DetailView):
 	model = Post
 	context_object_name = 'posts'
