@@ -11,9 +11,11 @@
 					{% csrf_token %}
 					<fieldset class="form-group">
 						<legend class="border-bottom mb-4">Log In</legend>
+						{% comment %}
 						{% for key, value in form.errors.items %}
 							{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
 						{% endfor %}
+						{% endcomment %}
 							<div id="div_id_username" class="form-group">
 								<label for="id_username" class=" requiredField">
 									Username or Email<span class="asteriskField">*</span>
@@ -23,8 +25,7 @@
 								</div>
 							</div>
 							<div id="div_id_password" class="form-group">
-								<label for="id_password" class=" requiredField">
-										Password<span class="asteriskField">*</span>
+								<label for="id_password" class=" requiredField">Password<span class="asteriskField">*</span>
 								</label>
 								<div class="">
 									<input type="password" name="password" class="textInput form-control" required id="id_password" placeholder="Password">
