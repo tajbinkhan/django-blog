@@ -64,24 +64,24 @@ Install Django Blog with pip
 
 Clone the project.
 ```bash
-  git clone https://github.com/tajbinkhan/django-blog.git
+git clone https://github.com/tajbinkhan/django-blog.git
 ```
 Go to the project directory (if you are a windows user).
 ```bash
-  cd django-blog
+cd django-blog
 ```
 In command panel, run this command.
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 After successfull installation, you need to start the migration to create table in the database.
 ```bash
-  python manage.py makemigrations
-  python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
 ```
 After migration, start the server by running this command.
 ```bash
-  python manage.py runserver
+python manage.py runserver
 ```
 
 ## Versions
