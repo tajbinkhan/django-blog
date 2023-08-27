@@ -1,6 +1,5 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-migrations
 *.py[cod]
 *$py.class
 
@@ -144,3 +143,6 @@ cython_debug/
 
 # VSCode
 .vscode
+
+# JSON Data
+data.json
