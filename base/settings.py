@@ -31,13 +31,13 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "evankhan.pythonanywhere.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app", ".pythonanywhere.com"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-	"jazzmin",
+	# "jazzmin",
 	"django.contrib.admin",
 	"django.contrib.auth",
 	"django.contrib.contenttypes",
@@ -90,7 +90,8 @@ TEMPLATES = [
 	},
 ]
 
-WSGI_APPLICATION = "base.wsgi.application"
+# WSGI_APPLICATION = "base.wsgi.application"
+WSGI_APPLICATION = "base.wsgi.app"
 
 AUTHENTICATION_BACKENDS = [
 	"django.contrib.auth.backends.ModelBackend",
@@ -100,24 +101,26 @@ AUTHENTICATION_BACKENDS = [
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEBUG:
-	DATABASES = {
-		"default": {
-			"ENGINE": "django.db.backends.sqlite3",
-			"NAME": BASE_DIR / "db.sqlite3",
-		}
+# DATABASES = {
+# 	"default": {
+# 		"ENGINE": "django.db.backends.sqlite3",
+# 		"NAME": BASE_DIR / "db.sqlite3",
+# 	}
+# }
+DATABASES = {
+	"default": {
+		"ENGINE": "django.db.backends.postgresql",
+		"NAME": config("DATABASE_NAME"),
+		"USER": config("DATABASE_USER"),
+		"PASSWORD": config("DATABASE_PASSWORD"),
+		"HOST": config("DATABASE_HOST"),
+		"PORT": config("DATABASE_PORT"),
+		"OPTIONS": {
+			"sslmode": "require",
+		},
+		"DISABLE_SERVER_SIDE_CURSORS": True,
 	}
-else:
-	DATABASES = {
-		"default": {
-			"ENGINE": "django.db.backends.postgresql",
-			"NAME": config("DATABASE_NAME"),
-			"USER": config("DATABASE_USER"),
-			"PASSWORD": config("DATABASE_PASSWORD"),
-			"HOST": config("DATABASE_HOST"),
-			"PORT": config("DATABASE_PORT"),
-		}
-	}
+}
 
 
 # Password validation
@@ -201,4 +204,4 @@ ACCOUNT_FORMS = {
 
 CKEDITOR_CONFIGS = CKEDITOR_CONFIGS
 
-JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+# JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
