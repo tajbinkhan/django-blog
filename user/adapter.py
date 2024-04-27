@@ -8,5 +8,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 		email = super().clean_email(email)
 		UserModel = get_user_model()
 		if UserModel.objects.filter(email=email).exists():
-			raise forms.ValidationError("This e-mail address is already associated with another account.")
+			raise forms.ValidationError(
+				"This e-mail address is already associated with another account."
+			)
 		return email

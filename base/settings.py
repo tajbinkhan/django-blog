@@ -192,7 +192,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 ACCOUNT_SIGNUP_REDIRECT_URL = "account_login"
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
-ACCOUNT_ADAPTER = "user.adapter.CustomAccountAdapter"
+# ACCOUNT_ADAPTER = "user.adapter.CustomAccountAdapter"
 ACCOUNT_FORMS = {
 	"login": "user.forms.CustomLoginForm",
 	"signup": "user.forms.CustomSignupForm",
